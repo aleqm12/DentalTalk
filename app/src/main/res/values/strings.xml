@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DentalTalk</string>
+    <string name="nombre_desarrollador">Clinical Data Network</string>
 </resources>
