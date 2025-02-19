@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "233881716341",
+    "project_id": "dentaltalk-585dd",
+    "storage_bucket": "dentaltalk-585dd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233881716341:android:a1019efd2ae88affef9a3c",
+        "android_client_info": {
+          "package_name": "com.dentistry.dentaltalk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBH8bEL3i-lxV4YVQhlRyvsxo6zXT2HCZs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
