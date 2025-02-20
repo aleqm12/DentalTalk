@@ -35,7 +35,7 @@ class SplashScreen : AppCompatActivity() {
             }
             //Despues de los 5 segundos pasamos a la ActivityMain
             override fun onFinish() {
-               val intent = Intent(applicationContext, MainActivity::class.java)
+               val intent = Intent(applicationContext, Inicio::class.java)
                 startActivity(intent)
                 finish()
             }

@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">DentalTalk</string>
     <string name="nombre_desarrollador">Clinical Data Network</string>
+
+
+    <string name="Btn_ir_registros">Registrarme</string>
+    <string name="Btn_ir_logeo">Ingresar</string>
+
+
 </resources>
