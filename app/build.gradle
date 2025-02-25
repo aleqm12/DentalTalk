@@ -43,6 +43,8 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
-    implementation 'com.airbnb.android:lottie:4.2.1'//Libreria para poder usar animaciones
-    implementation(platform("com.google.firebase:firebase-bom:33.9.0")) //Dependencia de Firebase.
+    implementation 'com.airbnb.android:lottie:4.2.1' // Librería para animaciones
+    implementation platform("com.google.firebase:firebase-bom:21.0.0")
+    implementation 'com.google.firebase:firebase-auth:21.0.1'
+    implementation 'com.google.firebase:firebase-database:21.0.0'
 }
