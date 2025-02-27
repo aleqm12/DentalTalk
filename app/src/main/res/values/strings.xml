@@ -16,4 +16,11 @@
     <string name="menu_salir">Cerrar sesión</string>
 
 
+    <string name="L_Et_email">Correo electrónico</string>
+    <string name="L_Et_password">Contraseña</string>
+    <string name="Btn_login"> Ingresar</string>
+
+
+
+
 </resources>

@@ -28,6 +28,7 @@ class RegistroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_registro)
+        supportActionBar!!.title="Registro"
         InicializarVariables()
 
         Btn_registrar.setOnClickListener{
