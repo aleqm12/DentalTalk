@@ -16,48 +16,93 @@
         android:gravity="center"
         android:padding="10dp">
 
-        <EditText
-            android:id="@+id/R_Et_nombre_usuario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/R_Et_nombre_usuario"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:textColorHint="#546E7A"
-            tools:ignore="VisualLintTextFieldSize" />
+        <!--Nombre de usuario-->
 
-        <EditText
-            android:id="@+id/R_Et_email"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/R_Et_email"
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp"
-            android:textColorHint="#546E7A"
-            tools:ignore="VisualLintTextFieldSize" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/R_Et_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/R_Et_password"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:textColorHint="#546E7A"
-            tools:ignore="VisualLintTextFieldSize" />
+            <EditText
+                android:id="@+id/R_Et_nombre_usuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/R_Et_nombre_usuario"
+                android:inputType="textPersonName|textCapWords"
+                android:drawableStart="@drawable/ic_nombre_usuario"
+                android:padding="20dp"
+                android:drawablePadding="10dp"
+                android:minHeight="48dp"
+                android:textColorHint="#546E7A"
+                tools:ignore="VisualLintTextFieldSize" />
 
-        <EditText
-            android:id="@+id/R_Et_r_password"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--Email-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/R_Et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/R_Et_email"
+                android:inputType="textEmailAddress"
+                android:drawableStart="@drawable/ic_email"
+                android:padding="20dp"
+                android:drawablePadding="10dp"
+                android:minHeight="48dp"
+                android:textColorHint="#546E7A"
+                tools:ignore="VisualLintTextFieldSize" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--Password-->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/R_Et_r_password"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:textColorHint="#546E7A"
-            tools:ignore="VisualLintTextFieldSize" />
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/R_Et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/R_Et_password"
+                android:inputType="textPassword"
+                android:drawableStart="@drawable/ic_password"
+                android:padding="20dp"
+                android:drawablePadding="10dp"
+                android:minHeight="48dp"
+                android:textColorHint="#546E7A"
+                tools:ignore="VisualLintTextFieldSize" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--r_passwrod-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/R_Et_r_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/R_Et_r_password"
+                android:inputType="textPassword"
+                android:drawableStart="@drawable/ic_password"
+                android:padding="20dp"
+                android:drawablePadding="10dp"
+                android:minHeight="48dp"
+                android:textColorHint="#546E7A"
+                tools:ignore="VisualLintTextFieldSize" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
         <Button
             android:id="@+id/Btn_registrar"
