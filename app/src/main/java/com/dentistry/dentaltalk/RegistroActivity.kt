@@ -97,6 +97,15 @@ class RegistroActivity : AppCompatActivity() {
                 hashMap["imagen"]=""
                 hashMap["buscar"]= h_nombre_usuario.lowercase()
 
+                /*Nuevos datos de usuario*/
+
+                hashMap["nombres"] = ""
+                hashMap["apellidos"] = ""
+                hashMap["edad"] = ""
+                hashMap["profesion"] = ""
+                hashMap["especialidad"] = ""
+                hashMap["estado"] = "offline"
+
                 rerference.updateChildren(hashMap).addOnCompleteListener{task2->
                     if (task2.isSuccessful){
                         val intent = Intent(this@RegistroActivity,MainActivity::class.java)
