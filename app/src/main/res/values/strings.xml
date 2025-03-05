@@ -19,6 +19,9 @@
     <string name="L_Et_email">Correo electrónico</string>
     <string name="L_Et_password">Contraseña</string>
     <string name="Btn_login"> Ingresar</string>
+
+    <string name="Nombre_Usuario">Nombre de Usuario</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

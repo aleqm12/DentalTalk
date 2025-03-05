@@ -28,7 +28,7 @@ class RegistroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_registro)
-        supportActionBar!!.title="Registro"
+        //supportActionBar!!.title="Registro"
         InicializarVariables()
 
         Btn_registrar.setOnClickListener{
@@ -103,7 +103,6 @@ class RegistroActivity : AppCompatActivity() {
                 hashMap["apellidos"] = ""
                 hashMap["edad"] = ""
                 hashMap["profesion"] = ""
-                hashMap["especialidad"] = ""
                 hashMap["estado"] = "offline"
 
                 rerference.updateChildren(hashMap).addOnCompleteListener{task2->

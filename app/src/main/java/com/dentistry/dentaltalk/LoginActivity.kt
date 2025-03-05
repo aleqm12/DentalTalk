@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
-        supportActionBar!!.title="Login"
+        //supportActionBar!!.title="Login"
         InicializarVariables()
 
         Btn_login.setOnClickListener{
