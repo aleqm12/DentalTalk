@@ -83,15 +83,15 @@ class RegistroActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener{ task->
             if (task.isSuccessful){
-                var vid : String = ""
-                vid = auth.currentUser!!.uid
-                rerference = FirebaseDatabase.getInstance().reference.child("Usuarios").child(vid)
+                var uid : String = ""
+                uid = auth.currentUser!!.uid
+                rerference = FirebaseDatabase.getInstance().reference.child("Usuarios").child(uid)
 
                 val hashMap = HashMap<String, Any>()
                 val h_nombre_usuario : String = R_Et_nombre_usuario.text.toString()
                 val h_email : String = R_Et_email.text.toString()
 
-                hashMap["vid"]=vid
+                hashMap["uid"]=uid
                 hashMap["n_usuario"]=h_nombre_usuario
                 hashMap["email"] = h_email
                 hashMap["imagen"]=""
