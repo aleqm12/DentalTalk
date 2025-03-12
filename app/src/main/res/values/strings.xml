@@ -14,6 +14,8 @@
     <string name="Btn_registrar">Registrar</string>
 
     <string name="menu_salir">Cerrar sesión</string>
+    <string name="menu_peril">Perfil de Usuario</string>
+    <string name="menu_acerca_de">Acerca de</string>
 
 
     <string name="L_Et_email">Correo electrónico</string>
@@ -26,7 +28,6 @@
     <string name="Item_email_usuario">Email de usuario</string>
 
     <string name="Et_buscar_usuario">Buscar usuarios</string>
-
 
 
     <!-- TODO: Remove or change this placeholder text -->

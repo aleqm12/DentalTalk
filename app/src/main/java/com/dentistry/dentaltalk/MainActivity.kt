@@ -19,6 +19,7 @@ import androidx.viewpager.widget.ViewPager
 import com.dentistry.dentaltalk.Fragmentos.FragmentoChats
 import com.dentistry.dentaltalk.Fragmentos.FragmentoUsuarios
 import com.dentistry.dentaltalk.Modelo.Usuario
+import com.dentistry.dentaltalk.Perfil.PerfilActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -120,6 +121,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId){
+            R.id.menu_perfil->{
+                val intent = Intent(applicationContext, PerfilActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+
+            R.id.menu_acerca_de->{
+                Toast.makeText(applicationContext,"Acerca de", Toast.LENGTH_SHORT).show()
+                return true
+            }
+
             R.id.menu_salir->{
                 FirebaseAuth.getInstance().signOut()
                 val intent = Intent(this@MainActivity, Inicio::class.java)
