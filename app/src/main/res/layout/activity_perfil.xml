@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,4 +9,143 @@
     android:layout_height="match_parent"
     tools:context=".Perfil.PerfilActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <!---Imagen de Portada-->
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@drawable/imagen_portada"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"/>
+
+            <!---Imagen de Perfil-->
+
+            <ImageView
+                android:id="@+id/P_imagen"
+                android:background="#354f60"
+                android:layout_marginTop="130dp"
+                android:layout_marginStart="15dp"
+                android:scaleType="centerCrop"
+                android:layout_width="140dp"
+                android:layout_height="140dp"/>
+
+            <!---Editar Imagen de Perfil-->
+
+            <ImageView
+                android:id="@+id/Eitar_imagen"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="230dp"
+                android:src="@drawable/editar_imagen_perfil"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="425dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/P_n_usuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/P_n_Usuario"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/P_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/P_email"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <!---Nombres-->
+            <EditText
+                android:id="@+id/P_nombres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/P_nombres"
+                android:inputType="textPersonName|textCapWords"
+                android:minHeight="48dp" />
+
+            <!---Apellidos-->
+            <EditText
+                android:id="@+id/P_apellidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/P_apellidos"
+                android:inputType="textPersonName|textCapWords"
+                android:minHeight="48dp" />
+
+            <!--Profesion-->
+            <EditText
+                android:id="@+id/P_profesion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/P_profesion"
+                android:inputType="textCapWords"
+                android:minHeight="48dp" />
+
+
+            <!--Domicilio-->
+            <EditText
+                android:id="@+id/P_domicilio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/P_domicilio"
+                android:inputType="textCapWords"
+                android:minHeight="48dp" />
+
+            <!--Edad-->
+            <EditText
+                android:id="@+id/P_edad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/P_edad"
+                android:inputType="number"
+                android:minHeight="48dp" />
+
+            <!--Telefono-->
+            <EditText
+                android:id="@+id/P_telefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/P_telefono"
+                android:inputType="number"
+                android:minHeight="48dp" />
+
+            <!--Actualizar-->
+            <Button
+                android:id="@+id/Btn_guardar"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:minHeight="48dp"
+                android:text="@string/Btn_Guardar" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>
