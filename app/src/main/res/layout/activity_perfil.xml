@@ -21,13 +21,13 @@
 
             <!---Imagen de Portada-->
 
-            <ImageView
-                android:scaleType="centerCrop"
-                android:src="@drawable/imagen_portada"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"/>
-
             <!---Imagen de Perfil-->
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/imagen_portada" />
 
             <ImageView
                 android:id="@+id/P_imagen"
@@ -53,7 +53,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="425dp"
+            android:layout_height="535dp"
             android:orientation="vertical"
             android:padding="10dp">
 
@@ -78,66 +78,124 @@
                 android:textStyle="bold" />
 
             <!---Nombres-->
-            <EditText
-                android:id="@+id/P_nombres"
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/P_nombres"
-                android:inputType="textPersonName|textCapWords"
-                android:minHeight="48dp" />
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/P_nombres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/P_nombres"
+                    android:inputType="textPersonName|textCapWords"
+                    android:minHeight="48dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!---Apellidos-->
-            <EditText
-                android:id="@+id/P_apellidos"
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/P_apellidos"
-                android:inputType="textPersonName|textCapWords"
-                android:minHeight="48dp" />
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/P_apellidos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/P_apellidos"
+                    android:inputType="textPersonName|textCapWords"
+                    android:minHeight="48dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!--Profesion-->
-            <EditText
-                android:id="@+id/P_profesion"
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/P_profesion"
-                android:inputType="textCapWords"
-                android:minHeight="48dp" />
+                android:layout_marginTop="5dp">
 
+
+                <EditText
+                    android:id="@+id/P_profesion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/P_profesion"
+                    android:inputType="textCapWords"
+                    android:minHeight="48dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!--Domicilio-->
-            <EditText
-                android:id="@+id/P_domicilio"
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/P_domicilio"
-                android:inputType="textCapWords"
-                android:minHeight="48dp" />
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/P_domicilio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/P_domicilio"
+                    android:inputType="textCapWords"
+                    android:minHeight="48dp" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!--Edad-->
-            <EditText
-                android:id="@+id/P_edad"
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/P_edad"
-                android:inputType="number"
-                android:minHeight="48dp" />
+                android:layout_marginTop="5dp">
+
+
+                <EditText
+                    android:id="@+id/P_edad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/P_edad"
+                    android:inputType="number"
+                    android:minHeight="48dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!--Telefono-->
-            <EditText
-                android:id="@+id/P_telefono"
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/P_telefono"
-                android:inputType="number"
-                android:minHeight="48dp" />
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/P_telefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/P_telefono"
+                    android:inputType="number"
+                    android:minHeight="48dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <!--Actualizar-->
             <Button
                 android:id="@+id/Btn_guardar"
-                android:layout_width="250dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                app:icon="@drawable/ic_guardar_cambios"
                 android:layout_marginTop="10dp"
                 android:minHeight="48dp"
                 android:text="@string/Btn_Guardar" />
