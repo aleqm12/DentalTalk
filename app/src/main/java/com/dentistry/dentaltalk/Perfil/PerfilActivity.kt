@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -41,6 +42,9 @@ class PerfilActivity : AppCompatActivity() {
         setContentView(R.layout.activity_perfil)
         IncializarVariables()
         ObtenerDatos()
+        Btn_guardar.setOnClickListener {
+            ActualizarInformacion()
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -107,5 +111,38 @@ class PerfilActivity : AppCompatActivity() {
 
 
         })
+    }
+
+    private fun ActualizarInformacion(){
+
+        val str_nombres = P_nombres.text.toString()
+        val str_apellidos = P_apellidos.text.toString()
+        val str_profesion= P_profesion.text.toString()
+        val str_domicilio = P_domicilio.text.toString()
+        val str_edad = P_edad.text.toString()
+        val str_telefono = P_telefono.text.toString()
+
+        val hashMap = HashMap<String, Any>()
+        hashMap ["nombres"]= str_nombres
+        hashMap["apellidos"] = str_apellidos
+        hashMap ["profesion"] = str_profesion
+        hashMap ["domicilio"] = str_domicilio
+        hashMap ["edad"] = str_edad
+        hashMap ["telefono"] = str_telefono
+
+
+        reference!!.updateChildren(hashMap).addOnCompleteListener{task->
+
+            if (task.isSuccessful){
+                Toast.makeText(applicationContext,"Se han actualizado los datos", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(applicationContext,"No se han actualizado los datos", Toast.LENGTH_SHORT).show()
+            }
+
+
+        }.addOnFailureListener{ e->
+            Toast.makeText(applicationContext,"Ha ocurrido un error ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+
     }
 }
