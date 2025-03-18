@@ -1,5 +1,6 @@
 package com.dentistry.dentaltalk.Perfil
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -31,6 +32,7 @@ private lateinit var P_domicilio: EditText
 private lateinit var P_edad: EditText
 private lateinit var P_telefono: EditText
 private lateinit var Btn_guardar:Button
+private lateinit var Editar_imagen : ImageView
 
 var user: FirebaseUser?=null
 var reference: DatabaseReference?=null
@@ -44,6 +46,12 @@ class PerfilActivity : AppCompatActivity() {
         ObtenerDatos()
         Btn_guardar.setOnClickListener {
             ActualizarInformacion()
+        }
+
+        Editar_imagen.setOnClickListener{
+           val intent = Intent(applicationContext, EditarImagenPerfil::class.java)
+            startActivity(intent)
+
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -65,6 +73,7 @@ class PerfilActivity : AppCompatActivity() {
         P_edad = findViewById(R.id.P_edad)
         P_telefono = findViewById(R.id.P_telefono)
         Btn_guardar = findViewById(R.id.Btn_guardar)
+        Editar_imagen = findViewById(R.id.Eitar_imagen)
 
         user = FirebaseAuth.getInstance().currentUser
         reference = FirebaseDatabase.getInstance().reference.child("Usuarios").child(user!!.uid)
