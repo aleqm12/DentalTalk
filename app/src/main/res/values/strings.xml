@@ -45,6 +45,11 @@
     <string name="BtnElegirImagenDe">Elegir imagen de</string>
     <string name="BtnActualizarImagen">Actualizar imagen</string>
 
+    <!--Cuadro de dialogo-->
+    <string name="Txt_seleccionar_imagen">Seleccionar imagen de:</string>
+    <string name="Btnabrirgaleria">Galeria</string>
+    <string name="BtnAbrircamara">Camara</string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->
