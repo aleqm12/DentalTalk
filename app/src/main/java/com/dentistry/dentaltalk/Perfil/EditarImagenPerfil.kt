@@ -1,5 +1,6 @@
 package com.dentistry.dentaltalk.Perfil
 
+import android.app.Dialog
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -29,10 +30,38 @@ class EditarImagenPerfil : AppCompatActivity() {
 
         BtnElegirImagen.setOnClickListener {
             Toast.makeText(applicationContext, "Seleccionar imagen de", Toast.LENGTH_SHORT).show()
+            MostrarDialog()
         }
 
         BtnActualizarImagen.setOnClickListener {
             Toast.makeText(applicationContext, "Actualizar imagen", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun MostrarDialog(){
+        val Btn_abrir_galeria: Button
+        val Btn_abrir_camara : Button
+
+        val dialog = Dialog(this@EditarImagenPerfil)
+
+        dialog.setContentView(R.layout.cuadro_de_dialogo_seleccionar)
+
+        Btn_abrir_galeria = dialog.findViewById(R.id.Btnabrirgaleria)
+        Btn_abrir_camara = dialog.findViewById(R.id.BtnAbrircamara)
+
+        Btn_abrir_galeria.setOnClickListener {
+
+            Toast.makeText(applicationContext, "Abrir Galeria", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+
+        Btn_abrir_camara.setOnClickListener {
+            Toast.makeText(applicationContext, "Abrir Camara", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+
+        dialog.show()
+
+
     }
 }
