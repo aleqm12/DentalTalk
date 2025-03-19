@@ -1,6 +1,7 @@
 package com.dentistry.dentaltalk.Perfil
 
 import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
@@ -17,6 +18,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dentistry.dentaltalk.R
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 
 class EditarImagenPerfil : AppCompatActivity() {
 
@@ -24,6 +29,9 @@ class EditarImagenPerfil : AppCompatActivity() {
     private lateinit var BtnElegirImagen : Button
     private lateinit var BtnActualizarImagen : Button
     private var imageUri: Uri? = null
+
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,14 +47,69 @@ class EditarImagenPerfil : AppCompatActivity() {
         BtnElegirImagen = findViewById(R.id.BtnElegirImagenDe)
         BtnActualizarImagen = findViewById(R.id.BtnActualizarImagen)
 
+        progressDialog = ProgressDialog(this@EditarImagenPerfil)
+        progressDialog.setTitle("Espere Por favor")
+        progressDialog.setCanceledOnTouchOutside(false)
+
+
+        firebaseAuth = FirebaseAuth.getInstance()
+
+
+
         BtnElegirImagen.setOnClickListener {
             Toast.makeText(applicationContext, "Seleccionar imagen de", Toast.LENGTH_SHORT).show()
             MostrarDialog()
         }
 
         BtnActualizarImagen.setOnClickListener {
-            Toast.makeText(applicationContext, "Actualizar imagen", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(applicationContext, "Actualizar imagen", Toast.LENGTH_SHORT).show()
+            ValidarImagen()
         }
+    }
+
+    private fun ValidarImagen(){
+        if (imageUri == null){
+            Toast.makeText(applicationContext,"Es necesario una imagen", Toast.LENGTH_SHORT).show()
+        }else{
+            SubirImagen()
+        }
+    }
+
+
+
+    private fun SubirImagen() {
+        progressDialog.setMessage("Actualizando imagen")
+        progressDialog.show()
+        val rutaImagen = "Perfil_usuario/"+firebaseAuth.uid
+        val referenceStorage = FirebaseStorage.getInstance().getReference(rutaImagen)
+        referenceStorage.putFile(imageUri!!).addOnSuccessListener { tarea->
+
+            val uriTarea : Task<Uri> = tarea.storage.downloadUrl
+            while (!uriTarea.isSuccessful);
+            val urlImage = "${uriTarea.result}"
+            ActualizarImagenBD(urlImage)
+        }.addOnFailureListener { e->
+            Toast.makeText(applicationContext, "No se ha podido subir la imagen dedibo a: ${e.message}", Toast.LENGTH_SHORT).show()
+
+        }
+    }
+
+    private fun ActualizarImagenBD(urlImage: String){
+
+        progressDialog.setMessage("Actualizando imagen de peril")
+        val hashMap : HashMap<String, Any> = HashMap()
+        if (imageUri!=null){
+            hashMap["imagen"] = urlImage
+        }
+
+        val reference = FirebaseDatabase.getInstance().getReference("Usuarios")
+        reference.child(firebaseAuth.uid!!).updateChildren(hashMap).addOnSuccessListener {
+            progressDialog.dismiss()
+            Toast.makeText(applicationContext, "Su imagen ha sido actualizada", Toast.LENGTH_SHORT).show()
+
+        }.addOnFailureListener { e->
+            Toast.makeText(applicationContext, "No se ha actualizado su  imagen dedibo a: ${e.message}", Toast.LENGTH_SHORT).show()
+      }
     }
 
 
