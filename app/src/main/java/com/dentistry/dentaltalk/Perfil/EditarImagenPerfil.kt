@@ -1,10 +1,16 @@
 package com.dentistry.dentaltalk.Perfil
 
 import android.app.Dialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -12,8 +18,10 @@ import com.dentistry.dentaltalk.R
 
 class EditarImagenPerfil : AppCompatActivity() {
 
+    private lateinit var ImagenPerfilActualizar: ImageView
     private lateinit var BtnElegirImagen : Button
     private lateinit var BtnActualizarImagen : Button
+    private var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +33,7 @@ class EditarImagenPerfil : AppCompatActivity() {
             insets
         }
 
+        ImagenPerfilActualizar = findViewById(R.id.ImagenPerfilActualizar)
         BtnElegirImagen = findViewById(R.id.BtnElegirImagenDe)
         BtnActualizarImagen = findViewById(R.id.BtnActualizarImagen)
 
@@ -38,6 +47,28 @@ class EditarImagenPerfil : AppCompatActivity() {
         }
     }
 
+
+    private fun AbrirGaleria(){
+
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        galeriaActivityResultLauncher.launch(intent)
+    }
+
+    private  val galeriaActivityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+        ActivityResultCallback <ActivityResult>{resultado->
+            if (resultado.resultCode == RESULT_OK){
+                val data = resultado.data
+                imageUri = data!!.data
+                ImagenPerfilActualizar.setImageURI(imageUri)
+            }else{
+                Toast.makeText(applicationContext, "Cancelado por el usuario", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+    )
     private fun MostrarDialog(){
         val Btn_abrir_galeria: Button
         val Btn_abrir_camara : Button
@@ -51,7 +82,8 @@ class EditarImagenPerfil : AppCompatActivity() {
 
         Btn_abrir_galeria.setOnClickListener {
 
-            Toast.makeText(applicationContext, "Abrir Galeria", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(applicationContext, "Abrir Galeria", Toast.LENGTH_SHORT).show()
+            AbrirGaleria()
             dialog.dismiss()
         }
 
