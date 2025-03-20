@@ -1,14 +1,17 @@
 package com.dentistry.dentaltalk.Adaptador
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.dentistry.dentaltalk.Chat.MensajesActivity
 import com.dentistry.dentaltalk.Modelo.Usuario
 import com.dentistry.dentaltalk.R
 
@@ -50,5 +53,13 @@ class AdaptadorUsuario (context : Context, listaUsuarios : List <Usuario>) : Rec
         holder.nombre_usuario.text = usuario.getN_Usuario()
         holder.email_usuario.text = usuario.getEmail()
         Glide.with(context).load(usuario.getImagen()).placeholder(R.drawable.ic_item_usuario).into(holder.imagen_usuario)
+
+        holder.itemView.setOnClickListener{
+            val intent = Intent(context, MensajesActivity::class.java)
+            //Enviamos el uid del usuario seleccionado
+            intent.putExtra("uid_usuario", usuario.getUid())
+            Toast.makeText(context, "El usuario seleccionado es:" +usuario.getN_Usuario(),Toast.LENGTH_SHORT).show()
+            context.startActivity(intent)
+        }
     }
 }
