@@ -50,6 +50,11 @@
     <string name="Btnabrirgaleria">Galeria</string>
     <string name="BtnAbrircamara">Camara</string>
 
+    <!--Cuadro de chat-->
+    <string name="N_usuario_chat">Nombre de usuario</string>
+    <string name="Et_mensaje">Escriba un mensaje</string>
+
+
 
 
     <!-- TODO: Remove or change this placeholder text -->
