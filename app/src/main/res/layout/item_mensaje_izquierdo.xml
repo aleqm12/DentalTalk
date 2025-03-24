@@ -27,7 +27,7 @@
 
     <!--imagen enviada-->
     <ImageView
-        android:id="@+id/imagen_enviada_izquierda"
+        android:id="@+id/imagen_enviada_izquierdo"
         android:layout_toEndOf="@+id/imagen_perfil_mensaje"
         android:layout_marginStart="5dp"
         android:visibility="gone"
