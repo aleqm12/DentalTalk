@@ -14,8 +14,9 @@ import com.google.firebase.auth.FirebaseUser
 
 class Inicio : AppCompatActivity() {
 
-    private lateinit var Btn_ir_registros : Button
+
     private lateinit var Btn_ir_logeo : Button
+    private lateinit var Btn_login_google : Button
 
     var firebaseUser: FirebaseUser?=null
 
@@ -31,21 +32,20 @@ class Inicio : AppCompatActivity() {
 
         }
 
-        Btn_ir_registros = findViewById(R.id.Btn_ir_registros)
+
         Btn_ir_logeo = findViewById(R.id.Btn_ir_logeo)
+        Btn_login_google = findViewById(R.id.Btn_login_google)
 
-         Btn_ir_registros.setOnClickListener{
-
-             val intent = Intent (this@Inicio, RegistroActivity::class.java)
-             Toast.makeText(applicationContext, "Registros",Toast.LENGTH_SHORT).show()
-             startActivity(intent)
-         }
 
         Btn_ir_logeo.setOnClickListener{
 
             val intent = Intent (this@Inicio,LoginActivity::class.java)
             Toast.makeText(applicationContext, "Login",Toast.LENGTH_SHORT).show()
             startActivity(intent)
+        }
+
+        Btn_login_google.setOnClickListener{
+            Toast.makeText(applicationContext, "Login con google",Toast.LENGTH_SHORT).show()
         }
     }
 
