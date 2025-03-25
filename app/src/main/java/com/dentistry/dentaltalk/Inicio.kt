@@ -15,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -23,8 +24,8 @@ import com.google.firebase.database.FirebaseDatabase
 class Inicio : AppCompatActivity() {
 
 
-    private lateinit var Btn_ir_logeo : Button
-    private lateinit var Btn_login_google : Button
+    private lateinit var Btn_ir_logeo : MaterialButton
+    private lateinit var Btn_login_google : MaterialButton
 
 
     var firebaseUser: FirebaseUser?=null
@@ -33,7 +34,7 @@ class Inicio : AppCompatActivity() {
     private lateinit var progressDialog: ProgressDialog
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
-    @SuppressLint("MissingInflatedId")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -45,9 +46,10 @@ class Inicio : AppCompatActivity() {
 
         }
 
-
         Btn_ir_logeo = findViewById(R.id.Btn_ir_logeo)
         Btn_login_google = findViewById(R.id.Btn_login_google)
+
+        auth = FirebaseAuth.getInstance()
 
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Espere por favor")
@@ -60,18 +62,17 @@ class Inicio : AppCompatActivity() {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
+        Btn_ir_logeo.setOnClickListener {
 
-
-        Btn_ir_logeo.setOnClickListener{
-
-            val intent = Intent (this@Inicio,LoginActivity::class.java)
-            Toast.makeText(applicationContext, "Login",Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@Inicio, LoginActivity::class.java)
+            Toast.makeText(applicationContext, "Login", Toast.LENGTH_SHORT).show()
             startActivity(intent)
         }
 
-        Btn_login_google.setOnClickListener{
-            EmpezarinicioSesionGoogle()
+        Btn_login_google.setOnClickListener {
+           EmpezarinicioSesionGoogle()
         }
+
     }
 
     private fun EmpezarinicioSesionGoogle() {
@@ -182,3 +183,4 @@ class Inicio : AppCompatActivity() {
         super.onStart()
     }
 }
+
