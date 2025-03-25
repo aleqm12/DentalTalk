@@ -106,6 +106,7 @@ class RegistroActivity : AppCompatActivity() {
                 hashMap["domicilio"]= ""
                 hashMap["telefono"]= ""
                 hashMap["estado"] = "offline"
+                hashMap["proveedor"] = "Email"
 
                 rerference.updateChildren(hashMap).addOnCompleteListener{task2->
                     if (task2.isSuccessful){

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "233881716341",
+    "firebase_url": "https://dentaltalk-585dd-default-rtdb.firebaseio.com",
     "project_id": "dentaltalk-585dd",
     "storage_bucket": "dentaltalk-585dd.firebasestorage.app"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.dentistry.dentaltalk"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "233881716341-el8urj0vifqapd3augfgijt7psphm44m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dentistry.dentaltalk",
+            "certificate_hash": "005e67890c80160adb8c4b2b786e6c9061c391e1"
+          }
+        },
+        {
+          "client_id": "233881716341-sd7b0lip7ftk300q8slo2bmuadfd5f9n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBH8bEL3i-lxV4YVQhlRyvsxo6zXT2HCZs"
@@ -20,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "233881716341-sd7b0lip7ftk300q8slo2bmuadfd5f9n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
