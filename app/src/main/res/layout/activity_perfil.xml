@@ -25,20 +25,20 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="189dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/imagen_portada" />
 
+            <!---Editar Imagen de Perfil-->
+
             <ImageView
                 android:id="@+id/P_imagen"
-                android:background="#354f60"
-                android:layout_marginTop="130dp"
-                android:layout_marginStart="15dp"
-                android:scaleType="centerCrop"
                 android:layout_width="140dp"
-                android:layout_height="140dp"/>
-
-            <!---Editar Imagen de Perfil-->
+                android:layout_height="140dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="130dp"
+                android:background="#354f60"
+                android:scaleType="centerCrop" />
 
             <ImageView
                 android:id="@+id/Eitar_imagen"
@@ -53,7 +53,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="535dp"
+            android:layout_height="637dp"
             android:orientation="vertical"
             android:padding="10dp">
 
@@ -81,43 +81,38 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="5dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/P_proveedor_txt"
                     android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textStyle="bold" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="0.5dp"
-                    android:backgroundTint="#48C9B0"
                     android:layout_marginStart="5dp"
+                    android:backgroundTint="#48C9B0"
+                    android:padding="0.5dp"
                     app:cardCornerRadius="10dp">
 
                     <TextView
                         android:id="@+id/P_proveedor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="@string/P_proveedor"
                         android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textStyle="bold" />
 
 
                 </androidx.cardview.widget.CardView>
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-
-
-
 
 
             <!---Nombres-->
@@ -213,35 +208,46 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--Telefono-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <!--Telefono-->
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
-                <EditText
+
+                <TextView
                     android:id="@+id/P_telefono"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:hint="@string/P_telefono"
-                    android:inputType="number"
-                    android:minHeight="48dp" />
+                    android:layout_gravity="center"
+                    android:minHeight="48dp"
+                    android:text="@string/P_telefono"
+                    android:textSize="18sp" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/Editar_Telefono"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/telefono" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
 
             <!--Actualizar-->
             <Button
                 android:id="@+id/Btn_guardar"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_width="195dp"
+                android:layout_height="59dp"
                 android:layout_gravity="center"
-                app:icon="@drawable/ic_guardar_cambios"
                 android:layout_marginTop="10dp"
+                android:backgroundTint="@color/lightblue"
                 android:minHeight="48dp"
-                android:text="@string/Btn_Guardar" />
+                android:text="@string/Btn_Guardar"
+                app:icon="@drawable/ic_guardar_cambios" />
 
 
         </LinearLayout>

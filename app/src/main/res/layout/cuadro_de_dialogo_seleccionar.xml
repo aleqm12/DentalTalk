@@ -41,6 +41,7 @@
 
             <Button
                 android:id="@+id/Btnabrirgaleria"
+                android:backgroundTint="@color/lightblue"
                 android:text="@string/Btnabrirgaleria"
                 android:gravity="center"
                 android:layout_marginTop="10dp"
@@ -63,6 +64,7 @@
                 android:layout_gravity="center"/>
             <Button
                 android:id="@+id/BtnAbrircamara"
+                android:backgroundTint="@color/lightblue"
                 android:text="@string/BtnAbrircamara"
                 android:gravity="center"
                 android:layout_marginTop="10dp"

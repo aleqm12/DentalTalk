@@ -1,5 +1,6 @@
 package com.dentistry.dentaltalk.Perfil
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -14,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.dentistry.dentaltalk.Modelo.Usuario
 import com.dentistry.dentaltalk.R
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -21,6 +23,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.hbb20.CountryCodePicker
 
 private lateinit var P_imagen: ImageView
 private lateinit var P_n_usuario: TextView
@@ -31,12 +34,17 @@ private lateinit var P_apellidos: EditText
 private lateinit var P_profesion: EditText
 private lateinit var P_domicilio: EditText
 private lateinit var P_edad: EditText
-private lateinit var P_telefono: EditText
+private lateinit var P_telefono: TextView
 private lateinit var Btn_guardar:Button
 private lateinit var Editar_imagen : ImageView
+private lateinit var Editar_Telefono:ImageView
 
 var user: FirebaseUser?=null
 var reference: DatabaseReference?=null
+
+private var codigoTel = ""
+private var numeroTel = ""
+private var codigo_numero_tel= ""
 
 class PerfilActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,12 +62,52 @@ class PerfilActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+
+        Editar_Telefono.setOnClickListener{
+            EstablecerNumTel()
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
 
         }
+    }
+
+    private fun EstablecerNumTel() {
+
+        /*Declarar las vistas del cuadro de Dialogo*/
+        val Establecer_Telefono : EditText
+        val SelectorCodigoPais: CountryCodePicker
+        val Btn_acpetar_Telefono: MaterialButton
+
+        /*Realizar la conexion con el diseno*/
+        val dialog = Dialog(this@PerfilActivity)
+
+        /*Inicializar las vistas*/
+        dialog.setContentView(R.layout.cuadro_d_establecer_tel)
+        Establecer_Telefono = dialog.findViewById(R.id.Establecer_Telefono)
+        SelectorCodigoPais = dialog.findViewById(R.id.SelectorCodigoPais)
+        Btn_acpetar_Telefono = dialog.findViewById(R.id.Btn_aceptar_Telefono)
+
+        /*Asignar un evento al boton*/
+        Btn_acpetar_Telefono.setOnClickListener {
+
+            codigoTel = SelectorCodigoPais.selectedCountryCodeWithPlus
+            numeroTel = Establecer_Telefono.text.toString().trim()
+            codigo_numero_tel = codigoTel + numeroTel
+
+            if (numeroTel.isEmpty()){
+                Toast.makeText(applicationContext, "Ingrese un numero telefonico", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }else{
+                P_telefono.text = codigo_numero_tel
+                dialog.dismiss()
+            }
+        }
+
+        dialog.show()
+        dialog.setCanceledOnTouchOutside(false)
     }
 
     private fun IncializarVariables(){
@@ -76,6 +124,7 @@ class PerfilActivity : AppCompatActivity() {
         Btn_guardar = findViewById(R.id.Btn_guardar)
         Editar_imagen = findViewById(R.id.Eitar_imagen)
         P_proveedor = findViewById(R.id.P_proveedor)
+        Editar_Telefono = findViewById(R.id.Editar_Telefono)
 
         user = FirebaseAuth.getInstance().currentUser
         reference = FirebaseDatabase.getInstance().reference.child("Usuarios").child(user!!.uid)

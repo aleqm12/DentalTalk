@@ -66,7 +66,9 @@
 
     <string name="default_web_client_id">233881716341-sd7b0lip7ftk300q8slo2bmuadfd5f9n.apps.googleusercontent.co</string>
 
-
+    <!--Cd_Establecer Telefono-->
+    <string name="Establecer_Telefono">Escriba su numero</string>
+    <string name="Btn_aceptar_Telefono">Aceptar</string>
 
 
 
