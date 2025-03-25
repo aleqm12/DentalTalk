@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener
 private lateinit var P_imagen: ImageView
 private lateinit var P_n_usuario: TextView
 private lateinit var P_email: TextView
+private lateinit var P_proveedor: TextView
 private lateinit var P_nombres: EditText
 private lateinit var P_apellidos: EditText
 private lateinit var P_profesion: EditText
@@ -74,6 +75,7 @@ class PerfilActivity : AppCompatActivity() {
         P_telefono = findViewById(R.id.P_telefono)
         Btn_guardar = findViewById(R.id.Btn_guardar)
         Editar_imagen = findViewById(R.id.Eitar_imagen)
+        P_proveedor = findViewById(R.id.P_proveedor)
 
         user = FirebaseAuth.getInstance().currentUser
         reference = FirebaseDatabase.getInstance().reference.child("Usuarios").child(user!!.uid)
@@ -91,6 +93,7 @@ class PerfilActivity : AppCompatActivity() {
                     val usuario : Usuario?=snapshot.getValue(Usuario::class.java)
                     val str_n_usuario = usuario!!.getN_Usuario()
                     val str_email = usuario.getEmail()
+                    val str_proveedor = usuario.getProveedor()
                     val str_nombres = usuario.getNombres()
                     val str_apellidos = usuario.getApellidos()
                     val str_profesion = usuario.getProfesion()
@@ -102,6 +105,7 @@ class PerfilActivity : AppCompatActivity() {
 
                     P_n_usuario.text = str_n_usuario
                     P_email.text = str_email
+                    P_proveedor.text = str_proveedor
                     P_nombres.setText(str_nombres)
                     P_apellidos.setText(str_apellidos)
                     P_profesion.setText(str_profesion)
