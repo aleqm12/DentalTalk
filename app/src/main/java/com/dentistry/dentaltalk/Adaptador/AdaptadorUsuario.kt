@@ -16,15 +16,17 @@ import com.dentistry.dentaltalk.Modelo.Usuario
 import com.dentistry.dentaltalk.R
 
 
-class AdaptadorUsuario (context : Context, listaUsuarios : List <Usuario>) : RecyclerView.Adapter<AdaptadorUsuario.ViewHolder>(){
+class AdaptadorUsuario (context : Context, listaUsuarios : List <Usuario>, chatLeido: Boolean) : RecyclerView.Adapter<AdaptadorUsuario.ViewHolder>(){
 
 
     private val context: Context
     private val listaUsuarios : List<Usuario>
+    private val chatLeido: Boolean
 
     init {
         this.context = context
         this.listaUsuarios = listaUsuarios
+        this.chatLeido = chatLeido
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){

@@ -84,7 +84,7 @@ class FragmentoUsuarios : Fragment() {
                         }
                     }
 
-                    usuarioAdaptador = AdaptadorUsuario(context!!, usuarioLista!!)
+                    usuarioAdaptador = AdaptadorUsuario(context!!, usuarioLista!!, false)
                     rvUsuarios!!.adapter = usuarioAdaptador
 
                 }
@@ -110,7 +110,7 @@ class FragmentoUsuarios : Fragment() {
                     }
                 }
 
-                usuarioAdaptador = AdaptadorUsuario(context!!, usuarioLista!!)
+                usuarioAdaptador = AdaptadorUsuario(context!!, usuarioLista!!, false)
                 rvUsuarios!!.adapter = usuarioAdaptador
             }
 
