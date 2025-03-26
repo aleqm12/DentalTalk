@@ -39,6 +39,9 @@ private lateinit var Btn_guardar:Button
 private lateinit var Editar_imagen : ImageView
 private lateinit var Editar_Telefono:ImageView
 
+
+
+
 var user: FirebaseUser?=null
 var reference: DatabaseReference?=null
 
@@ -66,6 +69,7 @@ class PerfilActivity : AppCompatActivity() {
         Editar_Telefono.setOnClickListener{
             EstablecerNumTel()
         }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -125,6 +129,7 @@ class PerfilActivity : AppCompatActivity() {
         Editar_imagen = findViewById(R.id.Eitar_imagen)
         P_proveedor = findViewById(R.id.P_proveedor)
         Editar_Telefono = findViewById(R.id.Editar_Telefono)
+
 
         user = FirebaseAuth.getInstance().currentUser
         reference = FirebaseDatabase.getInstance().reference.child("Usuarios").child(user!!.uid)
