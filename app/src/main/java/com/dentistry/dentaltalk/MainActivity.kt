@@ -64,8 +64,9 @@ class MainActivity : AppCompatActivity() {
 
         val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
 
-        viewPagerAdapter.addItem(FragmentoUsuarios(), "Usuarios")
         viewPagerAdapter.addItem(FragmentoChats(), "Chats")
+        viewPagerAdapter.addItem(FragmentoUsuarios(), "Usuarios")
+
 
         viewPager.adapter = viewPagerAdapter
         tabLayout.setupWithViewPager(viewPager)
