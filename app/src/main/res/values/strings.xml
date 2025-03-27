@@ -73,6 +73,13 @@
     <string name="Btn_aceptar_Telefono">Aceptar</string>
 
 
+    <string name="PV_Perfil_TXT">Perfil de usuario</string>
+    <string name="PV_NombreU">Nombre de usuario</string>
+    <string name="PV_EmailU">Email de usuario</string>
+    <string name="PV_uid_TXT">Identificador</string>
+    <string name="PV_uid">Uid</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
