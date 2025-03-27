@@ -3,7 +3,6 @@
     <string name="nombre_desarrollador">Clinical Data Network</string>
 
 
-
     <string name="Btn_ir_logeo">Ingresar con Email</string>
     <string name="Btn_login_google">Ingresar con Google</string>
 
@@ -17,6 +16,9 @@
     <string name="menu_salir">Cerrar sesión</string>
     <string name="menu_peril">Perfil de Usuario</string>
     <string name="menu_acerca_de">Acerca de</string>
+
+
+    <string name="menu_visitar">Visitar perfil</string>
 
 
     <string name="L_Et_email">Correo electrónico</string>
@@ -69,9 +71,6 @@
     <!--Cd_Establecer Telefono-->
     <string name="Establecer_Telefono">Escriba su numero</string>
     <string name="Btn_aceptar_Telefono">Aceptar</string>
-
-
-
 
 
     <!-- TODO: Remove or change this placeholder text -->

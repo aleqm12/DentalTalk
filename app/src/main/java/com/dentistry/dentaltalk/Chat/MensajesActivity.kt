@@ -4,6 +4,9 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -15,6 +18,7 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +27,7 @@ import com.bumptech.glide.Glide
 import com.dentistry.dentaltalk.Adaptador.AdaptadorChat
 import com.dentistry.dentaltalk.Modelo.Chat
 import com.dentistry.dentaltalk.Modelo.Usuario
+import com.dentistry.dentaltalk.Perfil.PerfilVisitado
 import com.dentistry.dentaltalk.R
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
@@ -135,6 +140,11 @@ class MensajesActivity : AppCompatActivity() {
     }
 
     private fun Inicializarvistas(){
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar_chat)
+        setSupportActionBar(toolbar)
+        supportActionBar!!.title= ""
+
 
         N_usuario_chat = findViewById(R.id.N_usuario_Chat)
         imagen_perfil_chat = findViewById(R.id.imagen_perfil_chat)
@@ -304,4 +314,26 @@ class MensajesActivity : AppCompatActivity() {
 
         }
     )
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater =menuInflater
+        inflater.inflate(R.menu.menu_visitar_perfil, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId){
+            R.id.menu_visitar->{
+                val intent = Intent(applicationContext, PerfilVisitado::class.java)
+                startActivity(intent)
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
+
+
+    
 }
