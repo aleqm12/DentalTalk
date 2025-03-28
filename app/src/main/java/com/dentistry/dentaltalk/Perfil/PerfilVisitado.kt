@@ -1,5 +1,6 @@
 package com.dentistry.dentaltalk.Perfil
 
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -38,6 +39,7 @@ class PerfilVisitado : AppCompatActivity() {
     private lateinit var PV_proveedor: TextView
 
     private lateinit var Btn_llamar: Button
+    private lateinit var Btn_enviar_sms: Button
 
     var uid_usuario_visitado = ""
 
@@ -69,6 +71,16 @@ class PerfilVisitado : AppCompatActivity() {
             }
 
         }
+
+        Btn_enviar_sms.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(applicationContext,
+                    Manifest.permission.SEND_SMS)== PackageManager.PERMISSION_GRANTED){
+                EnviarSMS()
+            }else{
+                requestSendMessagePermiso.launch(Manifest.permission.SEND_SMS)
+            }
+
+        }
     }
 
 
@@ -88,6 +100,7 @@ class PerfilVisitado : AppCompatActivity() {
 
 
         Btn_llamar = findViewById(R.id.Btn_llamar)
+        Btn_enviar_sms = findViewById(R.id.Btn_enviar_SMS)
     }
 
     private fun ObtenerUid(){
@@ -144,6 +157,18 @@ class PerfilVisitado : AppCompatActivity() {
         }
     }
 
+    private fun EnviarSMS(){
+        val numeroUsuario = PV_telefono.text.toString()
+        if(numeroUsuario.isEmpty()){
+            Toast.makeText(applicationContext, "El Usuario no cuenta con un numero telefónico", Toast.LENGTH_SHORT).show()
+        }else{
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.setData(Uri.parse("smsto: $numeroUsuario"))
+            intent.putExtra("sms_body","")
+            startActivity(intent)
+        }
+    }
+
     private val requestCallPhonePermiso=
         registerForActivityResult(ActivityResultContracts.RequestPermission()){Permiso_concedido->
             if (Permiso_concedido){
@@ -153,6 +178,16 @@ class PerfilVisitado : AppCompatActivity() {
                     Toast.LENGTH_SHORT).show()
             }
 
+        }
+
+    private val requestSendMessagePermiso =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()){Permiso_concedido->
+            if (Permiso_concedido){
+                EnviarSMS()
+            }else{
+                Toast.makeText(applicationContext, "El permiso de enviar SMS no ha sido concedido",
+                    Toast.LENGTH_SHORT).show()
+            }
         }
 
 
