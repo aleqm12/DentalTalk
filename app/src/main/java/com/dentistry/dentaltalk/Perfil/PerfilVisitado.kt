@@ -1,8 +1,12 @@
 package com.dentistry.dentaltalk.Perfil
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -30,6 +34,8 @@ class PerfilVisitado : AppCompatActivity() {
     private lateinit var PV_domicilio: TextView
     private lateinit var PV_proveedor: TextView
 
+    private lateinit var Btn_llamar: Button
+
     var uid_usuario_visitado = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +55,23 @@ class PerfilVisitado : AppCompatActivity() {
         InicializarVistas()
         ObtenerUid()
         LeerInformacionUsuario()
+
+        Btn_llamar.setOnClickListener {
+            RealizarLlamada()
+        }
+    }
+
+    private fun RealizarLlamada(){
+
+        val numeroUsuario = PV_telefono.text.toString()
+        if (numeroUsuario.isEmpty()){
+            Toast.makeText(applicationContext, "El Usuario no cuenta con un numero telefónico",
+                Toast.LENGTH_SHORT).show()
+        }else{
+            val intent = Intent(Intent.ACTION_CALL)
+            intent.setData(Uri.parse("tel: $numeroUsuario"))
+            startActivity(intent)
+        }
     }
 
     private fun InicializarVistas(){
@@ -63,6 +86,9 @@ class PerfilVisitado : AppCompatActivity() {
         PV_domicilio = findViewById(R.id.PV_domicilio)
         PV_proveedor = findViewById(R.id.PV_proveedor)
         PV_ImagenU = findViewById(R.id.PV_ImagenU)
+
+
+        Btn_llamar = findViewById(R.id.Btn_llamar)
     }
 
     private fun ObtenerUid(){
