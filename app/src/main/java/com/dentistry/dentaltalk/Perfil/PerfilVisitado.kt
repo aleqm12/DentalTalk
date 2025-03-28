@@ -1,6 +1,7 @@
 package com.dentistry.dentaltalk.Perfil
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
@@ -8,7 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
@@ -57,22 +60,18 @@ class PerfilVisitado : AppCompatActivity() {
         LeerInformacionUsuario()
 
         Btn_llamar.setOnClickListener {
-            RealizarLlamada()
+            //RealizarLlamada()
+            if (ContextCompat.checkSelfPermission(applicationContext,
+                    android.Manifest.permission.CALL_PHONE)== PackageManager.PERMISSION_GRANTED){
+                RealizarLlamada()
+            }else{
+                requestCallPhonePermiso.launch(android.Manifest.permission.CALL_PHONE)
+            }
+
         }
     }
 
-    private fun RealizarLlamada(){
 
-        val numeroUsuario = PV_telefono.text.toString()
-        if (numeroUsuario.isEmpty()){
-            Toast.makeText(applicationContext, "El Usuario no cuenta con un numero telefónico",
-                Toast.LENGTH_SHORT).show()
-        }else{
-            val intent = Intent(Intent.ACTION_CALL)
-            intent.setData(Uri.parse("tel: $numeroUsuario"))
-            startActivity(intent)
-        }
-    }
 
     private fun InicializarVistas(){
         PV_NombreU = findViewById(R.id.PV_NombreU)
@@ -131,6 +130,31 @@ class PerfilVisitado : AppCompatActivity() {
 
         })
     }
+
+    private fun RealizarLlamada(){
+
+        val numeroUsuario = PV_telefono.text.toString()
+        if (numeroUsuario.isEmpty()){
+            Toast.makeText(applicationContext, "El Usuario no cuenta con un numero telefónico",
+                Toast.LENGTH_SHORT).show()
+        }else{
+            val intent = Intent(Intent.ACTION_CALL)
+            intent.setData(Uri.parse("tel: $numeroUsuario"))
+            startActivity(intent)
+        }
+    }
+
+    private val requestCallPhonePermiso=
+        registerForActivityResult(ActivityResultContracts.RequestPermission()){Permiso_concedido->
+            if (Permiso_concedido){
+                RealizarLlamada()
+            }else{
+                Toast.makeText(applicationContext, "El permiso de realizar llamadas telefónicas no ha sido concedido",
+                    Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
 
 
 }
