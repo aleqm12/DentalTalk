@@ -325,6 +325,7 @@ class MensajesActivity : AppCompatActivity() {
         return when (item.itemId){
             R.id.menu_visitar->{
                 val intent = Intent(applicationContext, PerfilVisitado::class.java)
+                intent.putExtra("uid", uid_usuario_seleccionado)
                 startActivity(intent)
                 return true
             }

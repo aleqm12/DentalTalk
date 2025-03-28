@@ -76,8 +76,8 @@
     <string name="PV_Perfil_TXT">Perfil de usuario</string>
     <string name="PV_NombreU">Nombre de usuario</string>
     <string name="PV_EmailU">Email de usuario</string>
-    <string name="PV_uid_TXT">Identificador</string>
-    <string name="PV_uid">Uid</string>
+    <string name="PV_Uid_TXT">Identificador</string>
+    <string name="PV_Uid">Uid</string>
 
     <string name="PV_nombres_TXT">Nombres:</string>
     <string name="PV_nombres">--</string>
