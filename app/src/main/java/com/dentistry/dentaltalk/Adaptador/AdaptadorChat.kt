@@ -1,10 +1,12 @@
 package com.dentistry.dentaltalk.Adaptador
 
+import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dentistry.dentaltalk.Modelo.Chat
 import com.dentistry.dentaltalk.R
+import com.github.chrisbanes.photoview.PhotoView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
@@ -83,12 +86,15 @@ class AdaptadorChat(contexto: Context, chatLista:List<Chat>, imagenUrl: String)
                 Glide.with(contexto).load(chat.getUrl()).placeholder(R.drawable.ic_imagen_enviada).into(holder.imagen_enviada_derecha!!)
 
                 holder.imagen_enviada_derecha!!.setOnClickListener {
-                    val opciones = arrayOf<CharSequence>("Eliminar imagen", "Cancelar")
+                    val opciones = arrayOf<CharSequence>("Ver imagen completa","Eliminar imagen", "Cancelar")
                     val builder : AlertDialog.Builder = AlertDialog.Builder(holder.itemView.context)
                     builder.setTitle("¿Que desea realizar?")
                     builder.setItems(opciones, DialogInterface.OnClickListener{
                         dialogInterface, i ->
                         if (i == 0){
+                            VisualizarImagen(chat.getUrl())
+                        }
+                        else if (i == 1){
                             EliminarMensaje(position, holder)
                         }
                     })
@@ -100,6 +106,20 @@ class AdaptadorChat(contexto: Context, chatLista:List<Chat>, imagenUrl: String)
                 holder.TXT_ver_mensaje!!.visibility = View.GONE
                 holder.imagen_enviada_izquierdo!!.visibility = View.VISIBLE
                 Glide.with(contexto).load(chat.getUrl()).placeholder(R.drawable.ic_imagen_enviada).into(holder.imagen_enviada_izquierdo!!)
+
+                holder.imagen_enviada_izquierdo!!.setOnClickListener {
+                    val opciones = arrayOf<CharSequence>("Ver imagen completa","Cancelar")
+                        val builder : AlertDialog.Builder = AlertDialog.Builder(holder.itemView.context)
+                    builder.setTitle("¿Que desea realizar?")
+                    builder.setItems(opciones, DialogInterface.OnClickListener{
+                            dialogInterface, i ->
+                        if (i == 0){
+                            VisualizarImagen(chat.getUrl())
+                        }
+
+                    })
+                    builder.show()
+                }
 
             }
         }
@@ -134,6 +154,28 @@ class AdaptadorChat(contexto: Context, chatLista:List<Chat>, imagenUrl: String)
         }else{
             0
         }
+    }
+
+    private fun VisualizarImagen(imagen: String?){
+        val Img_visualizar: PhotoView
+        val Btn_cerrar_v : Button
+
+        val dialog = Dialog(contexto)
+
+        dialog.setContentView(R.layout.visualizar_imagen_completa)
+
+        Img_visualizar = dialog.findViewById(R.id.Img_visualizar)
+        Btn_cerrar_v = dialog.findViewById(R.id.Btn_cerrar_v)
+
+
+        Glide.with(contexto).load(imagen).placeholder(R.drawable.ic_imagen_enviada).into(Img_visualizar)
+
+        Btn_cerrar_v.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+        dialog.setCanceledOnTouchOutside(false)
     }
     private fun EliminarMensaje(position: Int, holder: ViewHolder){
 

@@ -98,7 +98,8 @@
     <string name="Btn_llamar">Llamar</string>
     <string name="Btn_enviar_SMS">Enviar SMS</string>
 
-
+    <!--Cd_Visualizar_imagen-->
+    <string name="Btn_cerrar_v">Cerrar</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
