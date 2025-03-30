@@ -1,17 +1,21 @@
 package com.dentistry.dentaltalk.Adaptador
 
 import android.content.Context
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dentistry.dentaltalk.Modelo.Chat
 import com.dentistry.dentaltalk.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
 
 
 class AdaptadorChat(contexto: Context, chatLista:List<Chat>, imagenUrl: String)
@@ -77,6 +81,19 @@ class AdaptadorChat(contexto: Context, chatLista:List<Chat>, imagenUrl: String)
                 holder.TXT_ver_mensaje!!.visibility = View.GONE
                 holder.imagen_enviada_derecha!!.visibility = View.VISIBLE
                 Glide.with(contexto).load(chat.getUrl()).placeholder(R.drawable.ic_imagen_enviada).into(holder.imagen_enviada_derecha!!)
+
+                holder.imagen_enviada_derecha!!.setOnClickListener {
+                    val opciones = arrayOf<CharSequence>("Eliminar imagen", "Cancelar")
+                    val builder : AlertDialog.Builder = AlertDialog.Builder(holder.itemView.context)
+                    builder.setTitle("¿Que desea realizar?")
+                    builder.setItems(opciones, DialogInterface.OnClickListener{
+                        dialogInterface, i ->
+                        if (i == 0){
+                            EliminarMensaje(position, holder)
+                        }
+                    })
+                    builder.show()
+                }
             }
             /*Condicion  para el usuario  el cual nos envia una imagen como mensaje*/
             else if (!chat.getEmisor().equals(firebaseUser!!.uid)){
@@ -91,6 +108,20 @@ class AdaptadorChat(contexto: Context, chatLista:List<Chat>, imagenUrl: String)
 
         else{
             holder.TXT_ver_mensaje!!.text = chat.getMensaje()
+            if (firebaseUser!!.uid == chat.getEmisor()){
+                holder.TXT_ver_mensaje!!.setOnClickListener {
+                    val opciones = arrayOf<CharSequence>("Eliminar mensaje", "Cancelar")
+                    val builder : AlertDialog.Builder = AlertDialog.Builder(holder.itemView.context)
+                    builder.setTitle("¿Que desea realizar?")
+                    builder.setItems(opciones, DialogInterface.OnClickListener{
+                            dialogInterface, i->
+                        if (i == 0){
+                            EliminarMensaje(position, holder)
+                        }
+                    })
+                    builder.show()
+                }
+            }
         }
 
 
@@ -104,6 +135,18 @@ class AdaptadorChat(contexto: Context, chatLista:List<Chat>, imagenUrl: String)
             0
         }
     }
+    private fun EliminarMensaje(position: Int, holder: ViewHolder){
 
+        val reference = FirebaseDatabase.getInstance().reference.child("Chats")
+            .child(chatLista.get(position).getId_Mensaje()!!)
+            .removeValue()
+            .addOnCompleteListener { tarea->
+                if (tarea.isSuccessful){
+                    Toast.makeText(holder.itemView.context,"Mensaje eliminado", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(holder.itemView.context,"No se ha eliminado el mensaje, intente nuevamente", Toast.LENGTH_SHORT).show()
+                }
+            }
 
+    }
 }
