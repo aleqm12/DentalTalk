@@ -20,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.dentistry.dentaltalk.R
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 
@@ -31,6 +32,7 @@ class EditarImagenPerfil : AppCompatActivity() {
     private var imageUri: Uri? = null
 
     private lateinit var firebaseAuth: FirebaseAuth
+    var firebaseUser : FirebaseUser? = null
     private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +55,7 @@ class EditarImagenPerfil : AppCompatActivity() {
 
 
         firebaseAuth = FirebaseAuth.getInstance()
+        firebaseUser = FirebaseAuth.getInstance().currentUser
 
 
 
@@ -182,5 +185,23 @@ class EditarImagenPerfil : AppCompatActivity() {
         dialog.show()
 
 
+    }
+
+    private fun ActualizarEstado(estado: String){
+        val reference = FirebaseDatabase.getInstance().reference.child("Usuarios")
+            .child(firebaseUser!!.uid)
+        val hashMap = HashMap<String, Any>()
+        hashMap["estado"]= estado
+        reference!!.updateChildren(hashMap)
+    }
+
+    override fun onResume(){
+        super.onResume()
+        ActualizarEstado("online")
+    }
+
+    override fun onPause(){
+        super.onPause()
+        ActualizarEstado("offline")
     }
 }

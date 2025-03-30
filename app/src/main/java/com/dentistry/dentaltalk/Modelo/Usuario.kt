@@ -13,6 +13,7 @@ class Usuario {
     private var edad : String = ""
     private var profesion : String = ""
     private var domicilio : String = ""
+    private var estado : String = ""
 
     constructor()
 
@@ -28,7 +29,8 @@ class Usuario {
         apellidos: String,
         edad: String,
         profesion: String,
-        domicilio: String
+        domicilio: String,
+        estado: String
     ) {
         this.uid = uid
         this.n_usuario = n_usuario
@@ -42,6 +44,7 @@ class Usuario {
         this.edad = edad
         this.profesion = profesion
         this.domicilio = domicilio
+        this.estado = estado
     }
 
     //getters y setters
@@ -140,6 +143,14 @@ class Usuario {
 
     fun setDomicilio(domicilio : String){
         this.domicilio = domicilio
+    }
+
+    fun getEstado (): String?{
+        return estado
+    }
+
+    fun setEstado(estado: String){
+        this.estado = estado
     }
 
 

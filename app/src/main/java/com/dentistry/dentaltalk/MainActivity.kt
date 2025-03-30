@@ -143,4 +143,22 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    private fun ActualizarEstado(estado: String){
+        val reference = FirebaseDatabase.getInstance().reference.child("Usuarios")
+            .child(firebaseUser!!.uid)
+        val hashMap = HashMap<String, Any>()
+        hashMap["estado"]= estado
+        reference!!.updateChildren(hashMap)
+    }
+
+    override fun onResume(){
+        super.onResume()
+        ActualizarEstado("online")
+    }
+
+    override fun onPause(){
+        super.onPause()
+        ActualizarEstado("offline")
+    }
 }
