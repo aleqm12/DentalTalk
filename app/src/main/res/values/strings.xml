@@ -103,6 +103,12 @@
     <!--Cd_Visualizar_imagen-->
     <string name="Btn_cerrar_v">Cerrar</string>
 
+    <!--Cd_Visualizar_imagen-->
+
+    <string name="Desarrollador">Desarrollado por: Alejandro Quesada Molina</string>
+    <string name="CorreoSoporte">Soporte: dataclinicalnetwork@gmail.com</string>
+    <string name="Version">Version: 1.0 </string>
+    <string name="EntendidoInfo">Entendido</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

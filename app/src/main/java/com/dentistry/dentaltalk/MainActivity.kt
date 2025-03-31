@@ -1,11 +1,13 @@
 package com.dentistry.dentaltalk
 
+import android.app.Dialog
 import android.app.FragmentManager
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -129,7 +131,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.menu_acerca_de->{
-                Toast.makeText(applicationContext,"Acerca de", Toast.LENGTH_SHORT).show()
+               InfoApp()
                 return true
             }
 
@@ -142,6 +144,20 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun InfoApp(){
+        val EntendidoInfo: Button
+        val dialog = Dialog(this@MainActivity)
+        dialog.setContentView(R.layout.cuadro_d_info_app)
+
+        EntendidoInfo= dialog.findViewById(R.id.EntendidoInfo)
+        EntendidoInfo.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+        dialog.setCanceledOnTouchOutside(false)
     }
 
     private fun ActualizarEstado(estado: String){
