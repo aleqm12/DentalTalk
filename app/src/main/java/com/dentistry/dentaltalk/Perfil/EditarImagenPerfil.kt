@@ -1,9 +1,11 @@
 package com.dentistry.dentaltalk.Perfil
 
+import android.Manifest
 import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -15,6 +17,8 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.os.registerForAllProfilingResults
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dentistry.dentaltalk.R
@@ -156,6 +160,16 @@ class EditarImagenPerfil : AppCompatActivity() {
             }
         }
 
+    private val requestCamaraPermiso =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()){ Permiso_concedido->
+            if (Permiso_concedido){
+                AbrirCamara()
+            }else{
+                Toast.makeText(applicationContext, "El permiso para acceder a la camara no ha sido concedido", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
 
 
     private fun MostrarDialog(){
@@ -177,9 +191,14 @@ class EditarImagenPerfil : AppCompatActivity() {
         }
 
         Btn_abrir_camara.setOnClickListener {
-            //Toast.makeText(applicationContext, "Abrir Camara", Toast.LENGTH_SHORT).show()
-            AbrirCamara()
-            dialog.dismiss()
+           if (ContextCompat.checkSelfPermission(applicationContext,
+                   Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED){
+               AbrirCamara()
+               dialog.dismiss()
+           }else{
+               requestCamaraPermiso.launch(Manifest.permission.CAMERA)
+           }
+
         }
 
         dialog.show()
