@@ -1,6 +1,7 @@
 package com.dentistry.dentaltalk.Perfil
 
 import android.Manifest
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -18,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.dentistry.dentaltalk.Modelo.Usuario
 import com.dentistry.dentaltalk.R
+import com.github.chrisbanes.photoview.PhotoView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -65,6 +67,10 @@ class PerfilVisitado : AppCompatActivity() {
         ObtenerUid()
         LeerInformacionUsuario()
 
+        PV_ImagenU.setOnClickListener {
+            ObtenerImagen()
+        }
+
         Btn_llamar.setOnClickListener {
             //RealizarLlamada()
             if (ContextCompat.checkSelfPermission(applicationContext,
@@ -88,6 +94,50 @@ class PerfilVisitado : AppCompatActivity() {
     }
 
 
+    private fun ObtenerImagen(){
+        val reference = FirebaseDatabase.getInstance().reference
+            .child("Usuarios")
+            .child(uid_usuario_visitado)
+
+        reference.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+               val usuario : Usuario? = snapshot.getValue(Usuario::class.java)
+                //Obtener la imagen
+                val imagen = usuario!!.getImagen()
+
+                VisualizarImagen(imagen)
+            }
+
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+    private fun VisualizarImagen(imagen : String?) {
+
+        val Img_visualizar: PhotoView
+        val Btn_cerrar_v : Button
+
+        val dialog = Dialog(this@PerfilVisitado)
+
+        dialog.setContentView(R.layout.visualizar_imagen_completa)
+
+        Img_visualizar = dialog.findViewById(R.id.Img_visualizar)
+        Btn_cerrar_v = dialog.findViewById(R.id.Btn_cerrar_v)
+
+
+        Glide.with(applicationContext).load(imagen).placeholder(R.drawable.ic_imagen_enviada).into(Img_visualizar)
+
+        Btn_cerrar_v.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+        dialog.setCanceledOnTouchOutside(false)
+    }
 
     private fun InicializarVistas(){
         PV_NombreU = findViewById(R.id.PV_NombreU)
