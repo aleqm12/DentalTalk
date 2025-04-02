@@ -13,11 +13,12 @@
     <string name="R_Et_r_password">Repita su Contraseña</string>
     <string name="Btn_registrar">Registrar</string>
 
+    <string name="menu_principal">Menu Principal</string>
     <string name="menu_salir">Cerrar sesión</string>
     <string name="menu_peril">Perfil de Usuario</string>
     <string name="menu_acerca_de">Acerca de</string>
 
-
+    <string name="menu_visitar_perfil">Visitar Perfil</string>
     <string name="menu_visitar">Visitar perfil</string>
 
 

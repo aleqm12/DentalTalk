@@ -57,7 +57,7 @@
         android:id="@+id/IB_Adjuntar"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/ic_adjuntar"
+        android:background="@drawable/adjuntar_imagen"
         android:layout_alignParentStart="true"/>
 
     <!--Escribir un mensaje-->
@@ -77,7 +77,7 @@
         android:id="@+id/IB_Enviar"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/ic_enviar"
+        android:background="@drawable/enviar_mensaje"
         android:layout_alignParentEnd="true"/>
 
 

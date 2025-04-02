@@ -65,7 +65,6 @@ class Inicio : AppCompatActivity() {
         Btn_ir_logeo.setOnClickListener {
 
             val intent = Intent(this@Inicio, LoginActivity::class.java)
-            Toast.makeText(applicationContext, "Login", Toast.LENGTH_SHORT).show()
             startActivity(intent)
         }
 

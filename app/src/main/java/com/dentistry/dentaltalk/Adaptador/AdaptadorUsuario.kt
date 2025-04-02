@@ -74,7 +74,6 @@ class AdaptadorUsuario (context : Context, listaUsuarios : List <Usuario>, chatL
             val intent = Intent(context, MensajesActivity::class.java)
             //Enviamos el uid del usuario seleccionado
             intent.putExtra("uid_usuario", usuario.getUid())
-            Toast.makeText(context, "El usuario seleccionado es:" +usuario.getN_Usuario(),Toast.LENGTH_SHORT).show()
             context.startActivity(intent)
         }
 

@@ -21,15 +21,17 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/Btn_ir_logeo"
             android:text="@string/Btn_ir_logeo"
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
+            app:icon="@drawable/ic_registrar_email"
             android:backgroundTint="@color/primaryblue"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/Btn_login_google"
             android:text="@string/Btn_login_google"
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
+            app:icon="@drawable/login_google"
             android:backgroundTint="@color/primaryblue"/>
 
 
