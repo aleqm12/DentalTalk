@@ -44,12 +44,12 @@
                 android:visibility="gone"/>
 
 
-            <!--Usuario conectado-->
+            <!--Usuario no conectado-->
             <ImageView
                 android:id="@+id/imagen_offline"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:background="#E74C3C"
+                android:background="#A9A9A9"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="35dp"
                 android:visibility="gone"/>
