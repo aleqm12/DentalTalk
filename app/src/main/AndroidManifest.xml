@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
+        android:name=".MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -66,26 +67,12 @@
                 android:value="" />
         </activity>
 
-        <service
-            android:name=".Notificaciones.MyFirebaseMessagingService"
-            android:exported="false"
-            android:enabled="true"
-            tools:ignore="Instantiatable">
+        <service android:name=".FcmService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-
-        <service android:name=".Notificaciones.MyFirebaseInstanceIdService"
-            android:exported="true"
-            android:enabled="true"
-            tools:ignore="Instantiatable">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
-
-
 
     </application>
 
