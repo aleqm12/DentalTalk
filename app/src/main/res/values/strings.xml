@@ -13,7 +13,7 @@
     <string name="R_Et_r_password">Repita su Contraseña</string>
     <string name="Btn_registrar">Registrar</string>
 
-    <string name="menu_principal">Menu Principal</string>
+    <string name="menu_principal">Menú Principal</string>
     <string name="menu_salir">Cerrar sesión</string>
     <string name="menu_peril">Perfil de Usuario</string>
     <string name="menu_acerca_de">Acerca de</string>
@@ -48,7 +48,7 @@
     <string name="P_profesion">Profesión</string>
     <string name="P_domicilio">Domicilio</string>
     <string name="P_edad">Edad</string>
-    <string name="P_telefono">Telefono</string>
+    <string name="P_telefono">Teléfono</string>
     <string name="Btn_Guardar">Guardar</string>
 
 
@@ -58,7 +58,7 @@
 
     <!--Cuadro de dialogo-->
     <string name="Txt_seleccionar_imagen">Seleccionar imagen de:</string>
-    <string name="Btnabrirgaleria">Galeria</string>
+    <string name="Btnabrirgaleria">Galería</string>
     <string name="BtnAbrircamara">Camara</string>
 
     <!--Cuadro de chat-->
@@ -72,7 +72,7 @@
     <string name="default_web_client_id">233881716341-sd7b0lip7ftk300q8slo2bmuadfd5f9n.apps.googleusercontent.co</string>
 
     <!--Cd_Establecer Telefono-->
-    <string name="Establecer_Telefono">Escriba su numero</string>
+    <string name="Establecer_Telefono">Escriba su número</string>
     <string name="Btn_aceptar_Telefono">Aceptar</string>
 
 
@@ -86,7 +86,7 @@
     <string name="PV_nombres">--</string>
     <string name="PV_apellidos_TXT">Apellidos:</string>
     <string name="PV_apellidos">--</string>
-    <string name="PV_porfesion_TXT">Profesion:</string>
+    <string name="PV_porfesion_TXT">Profesión:</string>
     <string name="PV_profesion">--</string>
     <string name="PV_telefono_TXT">Telefono:</string>
     <string name="PV_telefono">--</string>
@@ -108,7 +108,7 @@
 
     <string name="Desarrollador">Desarrollado por: Alejandro Quesada Molina</string>
     <string name="CorreoSoporte">Soporte: dataclinicalnetwork@gmail.com</string>
-    <string name="Version">Version: 1.0 </string>
+    <string name="Version">Versión: 1.0 </string>
     <string name="EntendidoInfo">Entendido</string>
 
     <!-- TODO: Remove or change this placeholder text -->
