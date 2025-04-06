@@ -26,14 +26,17 @@ class AdaptadorChat(contexto: Context, chatLista:List<Chat>, imagenUrl: String)
 
     private val contexto : Context
     private val chatLista: List<Chat>
-    private val imagenUrl: String
-    var firebaseUser : FirebaseUser =FirebaseAuth.getInstance().currentUser!!
+    private val imagenUrl: String //Url de la imagen
+    var firebaseUser : FirebaseUser =FirebaseAuth.getInstance().currentUser!! // Usuario actual de Firebase
 
+    //Se inician las variables
     init {
         this.contexto = contexto
         this.chatLista = chatLista
         this.imagenUrl = imagenUrl
     }
+
+    // Clase interna para manejar las vistas de cada elemento del RecyclerView
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         /*Vistas de item mensaje izquierdo*/
@@ -47,6 +50,7 @@ class AdaptadorChat(contexto: Context, chatLista:List<Chat>, imagenUrl: String)
         var imagen_enviada_derecha: ImageView?=null
 
         init {
+            // Asigna las vistas a las variables
             imagen_perfil_mensaje = itemView.findViewById(R.id.imagen_perfil_mensaje)
             TXT_ver_mensaje = itemView.findViewById(R.id.TXT_ver_mensaje)
             imagen_enviada_izquierdo = itemView.findViewById(R.id.imagen_enviada_izquierdo)
@@ -56,24 +60,29 @@ class AdaptadorChat(contexto: Context, chatLista:List<Chat>, imagenUrl: String)
 
 
     }
-
+    // Crea un nuevo ViewHolder para un mensaje
     override fun onCreateViewHolder(parent: ViewGroup, position:Int): ViewHolder {
         return if (position == 1){
+            // Si es un mensaje enviado por el usuario
             val view : View = LayoutInflater.from(contexto).inflate(com.dentistry.dentaltalk.R.layout.item_mensaje_derecho, parent, false)
             ViewHolder(view)
         }else{
+            // Si es un mensaje recibido
             val view: View = LayoutInflater.from(contexto).inflate(com.dentistry.dentaltalk.R.layout.item_mensaje_izquierdo,parent,false)
             ViewHolder(view)
         }
     }
 
+    // Retorna el número de elementos en la lista
     override fun getItemCount(): Int {
         return chatLista.size
     }
 
+    // Asigna los datos a las vistas del ViewHolder
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val chat : Chat = chatLista[position]
+        val chat : Chat = chatLista[position]// Obtiene el mensaje actual
+        // Carga la imagen de perfil del usuario
         Glide.with(contexto).load(imagenUrl).placeholder(R.drawable.ic_imagen_chat).into(holder.imagen_perfil_mensaje!!)
 
         /*Si el mensaje contiene una imagen*/
@@ -85,6 +94,7 @@ class AdaptadorChat(contexto: Context, chatLista:List<Chat>, imagenUrl: String)
                 holder.imagen_enviada_derecha!!.visibility = View.VISIBLE
                 Glide.with(contexto).load(chat.getUrl()).placeholder(R.drawable.ic_imagen_enviada).into(holder.imagen_enviada_derecha!!)
 
+                // Acción al hacer clic en la imagen enviada
                 holder.imagen_enviada_derecha!!.setOnClickListener {
                     val opciones = arrayOf<CharSequence>("Ver imagen completa","Eliminar imagen", "Cancelar")
                     val builder : AlertDialog.Builder = AlertDialog.Builder(holder.itemView.context)
@@ -107,6 +117,7 @@ class AdaptadorChat(contexto: Context, chatLista:List<Chat>, imagenUrl: String)
                 holder.imagen_enviada_izquierdo!!.visibility = View.VISIBLE
                 Glide.with(contexto).load(chat.getUrl()).placeholder(R.drawable.ic_imagen_enviada).into(holder.imagen_enviada_izquierdo!!)
 
+                // Acción al hacer clic en la imagen recibida
                 holder.imagen_enviada_izquierdo!!.setOnClickListener {
                     val opciones = arrayOf<CharSequence>("Ver imagen completa","Cancelar")
                         val builder : AlertDialog.Builder = AlertDialog.Builder(holder.itemView.context)
@@ -147,7 +158,7 @@ class AdaptadorChat(contexto: Context, chatLista:List<Chat>, imagenUrl: String)
 
 
     }
-
+    // Determina el tipo de vista (derecha o izquierda) basado en el emisor
     override fun getItemViewType(position: Int): Int {
         return if (chatLista[position].getEmisor().equals(firebaseUser!!.uid)){
             1
@@ -155,7 +166,7 @@ class AdaptadorChat(contexto: Context, chatLista:List<Chat>, imagenUrl: String)
             0
         }
     }
-
+    // Muestra una imagen en un diálogo
     private fun VisualizarImagen(imagen: String?){
         val Img_visualizar: PhotoView
         val Btn_cerrar_v : Button
@@ -177,6 +188,8 @@ class AdaptadorChat(contexto: Context, chatLista:List<Chat>, imagenUrl: String)
         dialog.show()
         dialog.setCanceledOnTouchOutside(false)
     }
+
+    // Elimina un mensaje de la base de datos
     private fun EliminarMensaje(position: Int, holder: ViewHolder){
 
         val reference = FirebaseDatabase.getInstance().reference.child("Chats")

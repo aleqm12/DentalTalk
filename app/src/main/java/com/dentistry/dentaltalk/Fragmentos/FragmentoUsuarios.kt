@@ -33,19 +33,20 @@ class FragmentoUsuarios : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Infla la vista para este fragmento
         val view: View = inflater.inflate(R.layout.fragment_fragmento_usuarios, container, false)
 
+        // Configura el RecyclerView para mostrar la lista de usuarios
         rvUsuarios = view.findViewById(R.id.RV_usuarios)
         rvUsuarios!!.setHasFixedSize(true)
         rvUsuarios!!.layoutManager = LinearLayoutManager (context)
         Et_buscar_usuario = view.findViewById(R.id.Et_buscar_usuario)
 
 
-
         usuarioLista = ArrayList()
         ObtenerUsuarioBD()
 
+        // Añade un TextWatcher para escuchar cambios en el campo de búsqueda
         Et_buscar_usuario.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -68,6 +69,7 @@ class FragmentoUsuarios : Fragment() {
         return view
     }
 
+    // Obtiene la lista de usuarios de la base de datos
     private fun ObtenerUsuarioBD() {
         val firebaseUser = FirebaseAuth.getInstance().currentUser!!.uid
         val reference = FirebaseDatabase.getInstance().reference.child("Usuarios").orderByChild("n_usuario")
@@ -75,15 +77,17 @@ class FragmentoUsuarios : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 (usuarioLista as ArrayList<Usuario>).clear()
 
+                // Si el campo de búsqueda está vacío, carga todos los usuarios
                 if (Et_buscar_usuario.text.toString().isEmpty()){
 
                     for (sh in snapshot.children){
-                        val usuario : Usuario?=sh.getValue(Usuario::class.java)
+                        val usuario : Usuario?=sh.getValue(Usuario::class.java) // Obtiene cada usuario
                         if (!(usuario!!.getUid()).equals(firebaseUser)){
-                            (usuarioLista as ArrayList<Usuario>).add(usuario)
+                            (usuarioLista as ArrayList<Usuario>).add(usuario) // Agrega a la lista
                         }
                     }
 
+                    // Configura el adaptador del RecyclerView con la lista de usuarios
                     usuarioAdaptador = AdaptadorUsuario(context!!, usuarioLista!!, false)
                     rvUsuarios!!.adapter = usuarioAdaptador
 
@@ -96,6 +100,7 @@ class FragmentoUsuarios : Fragment() {
         })
     }
 
+    // Busca usuarios en la base de datos según el texto ingresado
     private fun BuscarUsuario (buscarUsuario : String){
         val firebaseUser = FirebaseAuth.getInstance().currentUser!!.uid
         val consulta = FirebaseDatabase.getInstance().reference.child("Usuarios").orderByChild("buscar")
@@ -120,14 +125,6 @@ class FragmentoUsuarios : Fragment() {
 
 
         })
-
-
-
-
-
-
-
-
 
     }
 }

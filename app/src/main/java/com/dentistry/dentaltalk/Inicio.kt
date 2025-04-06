@@ -46,39 +46,48 @@ class Inicio : AppCompatActivity() {
 
         }
 
+        // Inicializar botones
         Btn_ir_logeo = findViewById(R.id.Btn_ir_logeo)
         Btn_login_google = findViewById(R.id.Btn_login_google)
 
+        // Inicializar Firebase Auth
         auth = FirebaseAuth.getInstance()
 
+        // Configurar el ProgressDialog
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Espere por favor")
         progressDialog.setCanceledOnTouchOutside(false)
 
+        // Configurar Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
+        // Crear el cliente de Google Sign-In
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
+        // Configurar el botón para ir a la actividad de inicio de sesión
         Btn_ir_logeo.setOnClickListener {
 
             val intent = Intent(this@Inicio, LoginActivity::class.java)
             startActivity(intent)
         }
 
+        // Configurar el botón de inicio de sesión con Google
         Btn_login_google.setOnClickListener {
            EmpezarinicioSesionGoogle()
         }
 
     }
 
+    // Iniciar el flujo de inicio de sesión de Google
     private fun EmpezarinicioSesionGoogle() {
         val googleSignIntent = mGoogleSignInClient.signInIntent
         googleSignInARL.launch(googleSignIntent)
     }
 
+    // Manejar el resultado de la actividad de inicio de sesión de Google
     private val googleSignInARL = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) {resultado->
         if (resultado.resultCode == RESULT_OK){
@@ -99,6 +108,7 @@ class Inicio : AppCompatActivity() {
 
     }
 
+    // Autenticar al usuario en Firebase con el token de Google
     private fun AutenticarGoogleFirebase(idToken: String?) {
         val credencial = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credencial)
@@ -119,6 +129,7 @@ class Inicio : AppCompatActivity() {
 
     }
 
+    // Guardar la información del usuario en la base de datos
     private fun GuardarInfoBD(){
 
         progressDialog.setMessage("Se esta registrando su informacion...")
@@ -130,8 +141,8 @@ class Inicio : AppCompatActivity() {
         val n_Google = auth.currentUser?.displayName
         val nombre_usuario_G : String = n_Google.toString()
 
+        // Crear un mapa con la información del usuario
         val hashMap = HashMap<String, Any?>()
-
         hashMap["uid"]=uidGoogle
         hashMap["n_usuario"]= nombre_usuario_G
         hashMap["email"] = correoGoogle
@@ -166,6 +177,8 @@ class Inicio : AppCompatActivity() {
             }
 
     }
+
+    // Comprobar si hay una sesión activa
     private fun comprobarSesion(){
         firebaseUser = FirebaseAuth.getInstance().currentUser
 
@@ -178,7 +191,7 @@ class Inicio : AppCompatActivity() {
     }
 
     override fun onStart() {
-        comprobarSesion()
+        comprobarSesion() // Verificar sesión activa al iniciar
         super.onStart()
     }
 }

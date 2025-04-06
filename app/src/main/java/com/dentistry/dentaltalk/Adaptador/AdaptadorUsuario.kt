@@ -31,12 +31,13 @@ class AdaptadorUsuario (context : Context, listaUsuarios : List <Usuario>, chatL
     private val chatLeido: Boolean
     var ultimoMensaje: String= ""
 
+    //Se inician las variables
     init {
         this.context = context
         this.listaUsuarios = listaUsuarios
         this.chatLeido = chatLeido
     }
-
+    // Clase interna para manejar las vistas de cada elemento del RecyclerView
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var  nombre_usuario : TextView
        // var email_usuario : TextView
@@ -45,6 +46,7 @@ class AdaptadorUsuario (context : Context, listaUsuarios : List <Usuario>, chatL
         var imagen_offline : ImageView
         var TXT_ultimo_mensaje: TextView
 
+        // Asigna las vistas a las variables
         init {
             nombre_usuario = itemView.findViewById(R.id.Item_nombre_usuario)
             //email_usuario = itemView.findViewById(R.id.Item_email_usuario)
@@ -54,22 +56,25 @@ class AdaptadorUsuario (context : Context, listaUsuarios : List <Usuario>, chatL
             TXT_ultimo_mensaje = itemView.findViewById(R.id.TXT_ultimo_mensaje)
         }
     }
-
+    // Crea un nuevo ViewHolder para un usuario
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view : View = LayoutInflater.from(context).inflate(R.layout.item_usuario,parent,false)
         return ViewHolder(view)
     }
 
+    // Retorna el número de elementos en la lista
     override fun getItemCount(): Int {
         return listaUsuarios.size
     }
 
+    // Asigna los datos a las vistas del ViewHolder
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val usuario : Usuario = listaUsuarios[position]
         holder.nombre_usuario.text = usuario.getN_Usuario()
         //holder.email_usuario.text = usuario.getEmail()
         Glide.with(context).load(usuario.getImagen()).placeholder(R.drawable.ic_item_usuario).into(holder.imagen_usuario)
 
+        // Acción al hacer clic en el elemento del usuario
         holder.itemView.setOnClickListener{
             val intent = Intent(context, MensajesActivity::class.java)
             //Enviamos el uid del usuario seleccionado
@@ -77,12 +82,14 @@ class AdaptadorUsuario (context : Context, listaUsuarios : List <Usuario>, chatL
             context.startActivity(intent)
         }
 
+        // Si el chat ha sido leído, obtener el último mensaje
         if (chatLeido){
             ObtenerUltimoMensaje(usuario.getUid(), holder.TXT_ultimo_mensaje)
         }else{
             holder.TXT_ultimo_mensaje.visibility = View.GONE
         }
 
+        // Maneja la visibilidad de los indicadores de estado en línea
         if (chatLeido){
             if (usuario.getEstado()=="online"){
                 holder.imagen_online.visibility = View.VISIBLE
@@ -99,7 +106,7 @@ class AdaptadorUsuario (context : Context, listaUsuarios : List <Usuario>, chatL
 
 
     }
-
+    // Obtiene el último mensaje entre el usuario actual y el usuario seleccionado
     private fun ObtenerUltimoMensaje(ChatUsuarioUid: kotlin.String?, txtUltimoMensaje :TextView) {
 
         ultimoMensaje = "defaultMensaje"

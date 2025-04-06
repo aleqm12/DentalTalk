@@ -65,20 +65,20 @@ class MensajesActivity : AppCompatActivity() {
         ObtenerUid()
         LeerInfoUsuarioSeleccionado()
 
+        // Botón para adjuntar imágenes
         IB_Adjuntar.setOnClickListener{
-
             AbrirGaleria()
-
         }
 
+        // Botón para enviar un mensaje
         IB_Enviar.setOnClickListener{
 
-            val mensaje = Et_mensaje.text.toString()
+            val mensaje = Et_mensaje.text.toString()// Obtiene el texto del mensaje
             if (mensaje.isEmpty()){
                 Toast.makeText(applicationContext, "Por favor ingrese un mensaje", Toast.LENGTH_SHORT).show()
             }else{
                 EnviarMensaje(firebaseUser!!.uid, uid_usuario_seleccionado,mensaje)
-                Et_mensaje.setText("")
+                Et_mensaje.setText("")// Limpia el campo de texto
             }
         }
 
@@ -89,19 +89,19 @@ class MensajesActivity : AppCompatActivity() {
         }
     }
 
-
-
+    // Obtiene el UID del usuario seleccionado
     private fun ObtenerUid(){
         intent = intent
         uid_usuario_seleccionado = intent.getStringExtra("uid_usuario").toString()
     }
 
+    // Envía un mensaje a la base de datos
     private fun EnviarMensaje(uid_emisor: String, uid_receptor: String, mensaje: String) {
 
         val reference = FirebaseDatabase.getInstance().reference
-        val mensajeKey = reference.push().key
+        val mensajeKey = reference.push().key // Crea una nueva clave para el mensaje
 
-
+        // Prepara la información del mensaje
         val infoMensaje = HashMap<String, Any?> ()
         infoMensaje["id_mensaje"]= mensajeKey
         infoMensaje["emisor"]= uid_emisor
@@ -109,7 +109,10 @@ class MensajesActivity : AppCompatActivity() {
         infoMensaje["mensaje"]= mensaje
         infoMensaje["url"]= ""
         infoMensaje["visto"]= false
+
+        // Guarda el mensaje en la base de datos
         reference.child("Chats").child(mensajeKey!!).setValue(infoMensaje).addOnCompleteListener{tarea->
+
 
             if (tarea.isSuccessful){
                 val listaMensajesEmisor = FirebaseDatabase.getInstance().reference.child("ListaMensajes")
@@ -139,6 +142,7 @@ class MensajesActivity : AppCompatActivity() {
 
     }
 
+    // Inicializa las vistas de la actividad
     private fun Inicializarvistas(){
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_chat)
@@ -160,6 +164,7 @@ class MensajesActivity : AppCompatActivity() {
         RV_chats.layoutManager = linearLayoutManager
     }
 
+    // Lee la información del usuario seleccionado
     private fun LeerInfoUsuarioSeleccionado(){
 
         val reference = FirebaseDatabase.getInstance().reference.child("Usuarios")
@@ -186,20 +191,22 @@ class MensajesActivity : AppCompatActivity() {
 
     }
 
+    // Recupera los mensajes entre el emisor y el receptor
     private fun RecuperarMensajes(EmisorUid: String, ReceptorUid : String, Receptorimagen: String?) {
-        chatList = ArrayList()
+        chatList = ArrayList()// Inicializa la lista de chats
         val reference = FirebaseDatabase.getInstance().reference.child("Chats")
         reference.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                (chatList as ArrayList<Chat>).clear()
+                (chatList as ArrayList<Chat>).clear()// Limpia la lista antes de llenarla
                 for (sn in snapshot.children){
                     val chat =sn.getValue(Chat::class.java)
 
+                    // Verifica si el chat pertenece a los usuarios relevantes
                     if (chat!!.getReceptor().equals(EmisorUid) && chat.getEmisor().equals(ReceptorUid)
                         || chat.getReceptor().equals(ReceptorUid) && chat.getEmisor().equals(EmisorUid)){
                         (chatList as ArrayList<Chat>).add(chat)
                     }
-
+                    // Configura el adaptador del RecyclerView
                     chatAdapter = AdaptadorChat(this@MensajesActivity, (chatList as ArrayList<Chat>), Receptorimagen!!)
                     RV_chats.adapter = chatAdapter
                 }
@@ -214,12 +221,14 @@ class MensajesActivity : AppCompatActivity() {
 
     }
 
+    // Abre la galería para seleccionar una imagen
     private fun AbrirGaleria() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         galeriaARL.launch(intent)
     }
 
+    // Maneja el resultado de la selección de la galería
     private val galeriaARL = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
         ActivityResultCallback<ActivityResult> {resultado->

@@ -32,8 +32,9 @@ class RegistroActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_registro)
         //supportActionBar!!.title="Registro"
-        InicializarVariables()
+        InicializarVariables()  // Inicializa las variables de la interfaz
 
+        // Configura el botón de registro para validar los datos
         Btn_registrar.setOnClickListener{
             ValidarDatos()
         }
@@ -45,6 +46,7 @@ class RegistroActivity : AppCompatActivity() {
     }
 
 
+    // Inicializa los elementos de la interfaz
     private fun InicializarVariables (){
         R_Et_nombre_usuario = findViewById(R.id.R_Et_nombre_usuario)
         R_Et_email= findViewById(R.id.R_Et_email)
@@ -59,12 +61,15 @@ class RegistroActivity : AppCompatActivity() {
         progressDialog.setCanceledOnTouchOutside(false)
     }
 
+    // Obtiene los datos ingresados por el usuario
     private fun ValidarDatos() {
         val nombre_usuario : String = R_Et_nombre_usuario.text.toString()
         val email: String = R_Et_email.text.toString()
         val password: String = R_Et_password.text.toString()
         val r_password: String = R_Et_r_password.text.toString()
 
+
+        // Validaciones de los datos ingresados
         if (nombre_usuario.isEmpty()){
             Toast.makeText(applicationContext, "Ingrese nombre de usuario",Toast.LENGTH_SHORT).show()
         }
@@ -87,6 +92,7 @@ class RegistroActivity : AppCompatActivity() {
         }
     }
 
+    // Crea un nuevo usuario en Firebase
     private fun RegistrarUsuario(email: String, password: String) {
         progressDialog.setMessage("Espere Por favor")
         progressDialog.show()
@@ -97,6 +103,7 @@ class RegistroActivity : AppCompatActivity() {
                 uid = auth.currentUser!!.uid
                 rerference = FirebaseDatabase.getInstance().reference.child("Usuarios").child(uid)
 
+                // Crea un mapa con la información del usuario
                 val hashMap = HashMap<String, Any>()
                 val h_nombre_usuario : String = R_Et_nombre_usuario.text.toString()
                 val h_email : String = R_Et_email.text.toString()
@@ -118,6 +125,7 @@ class RegistroActivity : AppCompatActivity() {
                 hashMap["estado"] = "offline"
                 hashMap["proveedor"] = "Email"
 
+                // Actualiza la base de datos con la nueva información del usuario
                 rerference.updateChildren(hashMap).addOnCompleteListener{task2->
                     if (task2.isSuccessful){
                         val intent = Intent(this@RegistroActivity,MainActivity::class.java)
@@ -126,16 +134,19 @@ class RegistroActivity : AppCompatActivity() {
                     }
 
                 }.addOnFailureListener{e->
+                    // Manejo de errores al actualizar la base de datos
                     Toast.makeText(applicationContext,"{${e.message}", Toast.LENGTH_SHORT).show()
 
                 }
             }else{
                 progressDialog.dismiss()
+                // Manejo de errores al crear el usuario
                 Toast.makeText(applicationContext,"Ha ocurrido un error", Toast.LENGTH_SHORT).show()
             }
         }
             .addOnFailureListener{e->
                 progressDialog.dismiss()
+                // Manejo de errores en la creación del usuario
                 Toast.makeText(applicationContext,"{${e.message}", Toast.LENGTH_SHORT).show()
 
             }

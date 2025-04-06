@@ -67,10 +67,12 @@ class PerfilVisitado : AppCompatActivity() {
         ObtenerUid()
         LeerInformacionUsuario()
 
+        // Manejar clic en la imagen de perfil
         PV_ImagenU.setOnClickListener {
             ObtenerImagen()
         }
 
+        // Manejar clic en el botón de llamar
         Btn_llamar.setOnClickListener {
             //RealizarLlamada()
             if (ContextCompat.checkSelfPermission(applicationContext,
@@ -82,6 +84,7 @@ class PerfilVisitado : AppCompatActivity() {
 
         }
 
+        // Manejar clic en el botón de enviar SMS
         Btn_enviar_sms.setOnClickListener {
             if (ContextCompat.checkSelfPermission(applicationContext,
                     Manifest.permission.SEND_SMS)== PackageManager.PERMISSION_GRANTED){
@@ -93,7 +96,7 @@ class PerfilVisitado : AppCompatActivity() {
         }
     }
 
-
+    // Obtener la imagen del usuario visitado
     private fun ObtenerImagen(){
         val reference = FirebaseDatabase.getInstance().reference
             .child("Usuarios")
@@ -105,7 +108,7 @@ class PerfilVisitado : AppCompatActivity() {
                 //Obtener la imagen
                 val imagen = usuario!!.getImagen()
 
-                VisualizarImagen(imagen)
+                VisualizarImagen(imagen) // Visualizar imagen en un diálogo
             }
 
 
@@ -116,6 +119,7 @@ class PerfilVisitado : AppCompatActivity() {
         })
     }
 
+    // Visualizar la imagen en un diálogo
     private fun VisualizarImagen(imagen : String?) {
 
         val Img_visualizar: PhotoView
@@ -139,6 +143,7 @@ class PerfilVisitado : AppCompatActivity() {
         dialog.setCanceledOnTouchOutside(false)
     }
 
+    // Inicializar vistas
     private fun InicializarVistas(){
         PV_NombreU = findViewById(R.id.PV_NombreU)
         PV_EmailU = findViewById(R.id.PV_EmailU)
@@ -159,11 +164,13 @@ class PerfilVisitado : AppCompatActivity() {
         user= FirebaseAuth.getInstance().currentUser
     }
 
+    // Obtener UID del usuario visitado
     private fun ObtenerUid(){
         intent = intent
         uid_usuario_visitado = intent.getStringExtra("uid").toString()
     }
 
+    // Leer la información del usuario visitado
     private fun LeerInformacionUsuario(){
 
         val reference = FirebaseDatabase.getInstance().reference
@@ -173,8 +180,8 @@ class PerfilVisitado : AppCompatActivity() {
         reference.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val usuario : Usuario? = snapshot.getValue(Usuario::class.java)
-                //Obtener informacion en tiempo real.
 
+                //Obtener informacion en tiempo real.
                 PV_NombreU.text = usuario!!.getN_Usuario()
                 PV_EmailU.text = usuario!!.getEmail()
                 PV_Uid.text =usuario!!.getUid()
@@ -200,6 +207,7 @@ class PerfilVisitado : AppCompatActivity() {
         })
     }
 
+    // Realizar llamada al número del usuario
     private fun RealizarLlamada(){
 
         val numeroUsuario = PV_telefono.text.toString()
@@ -213,6 +221,7 @@ class PerfilVisitado : AppCompatActivity() {
         }
     }
 
+    // Enviar SMS al número del usuario
     private fun EnviarSMS(){
         val numeroUsuario = PV_telefono.text.toString()
         if(numeroUsuario.isEmpty()){
@@ -225,6 +234,7 @@ class PerfilVisitado : AppCompatActivity() {
         }
     }
 
+    // Solicitar permiso para realizar llamadas
     private val requestCallPhonePermiso=
         registerForActivityResult(ActivityResultContracts.RequestPermission()){Permiso_concedido->
             if (Permiso_concedido){
@@ -236,6 +246,7 @@ class PerfilVisitado : AppCompatActivity() {
 
         }
 
+    // Solicitar permiso para enviar SMS
     private val requestSendMessagePermiso =
         registerForActivityResult(ActivityResultContracts.RequestPermission()){Permiso_concedido->
             if (Permiso_concedido){
@@ -246,6 +257,7 @@ class PerfilVisitado : AppCompatActivity() {
             }
         }
 
+    // Actualizar el estado del usuario en la base de datos
     private fun ActualizarEstado(estado: String){
         val reference = FirebaseDatabase.getInstance().reference.child("Usuarios")
             .child(user!!.uid)
@@ -254,16 +266,17 @@ class PerfilVisitado : AppCompatActivity() {
         reference!!.updateChildren(hashMap)
     }
 
+    // Actualizar estado al entrar en la actividad
     override fun onResume(){
         super.onResume()
-        ActualizarEstado("online")
+        ActualizarEstado("online") // Establecer estado como en línea
     }
 
+    // Actualizar estado al salir de la actividad
     override fun onPause(){
         super.onPause()
-        ActualizarEstado("offline")
+        ActualizarEstado("offline") // Establecer estado como fuera de línea
     }
-
 
 
 }

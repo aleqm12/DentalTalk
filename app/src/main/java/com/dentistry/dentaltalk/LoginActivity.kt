@@ -29,12 +29,14 @@ class LoginActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
         //supportActionBar!!.title="Login"
-        InicializarVariables()
+        InicializarVariables()  // Inicializar las variables de la interfaz
 
+        // Configurar el botón de inicio de sesión
         Btn_login.setOnClickListener{
             ValidarDatos()
         }
 
+        // Configurar el texto para ir a la actividad de registro
         TXT_ir_registro.setOnClickListener {
             val intent = Intent (this@LoginActivity, RegistroActivity::class.java)
             startActivity(intent)
@@ -46,8 +48,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-
-
+    // Inicializar las variables de la interfaz
     private fun InicializarVariables(){
         L_Et_email = findViewById(R.id.L_Et_email)
         L_Et_password = findViewById(R.id.L_Et_password)
@@ -57,13 +58,13 @@ class LoginActivity : AppCompatActivity() {
 
 
         //Configurar ProgressDialog
-
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Iniciando Sesion")
         progressDialog.setCanceledOnTouchOutside(false
         )
     }
 
+    // Validar los datos ingresados por el usuario
     private fun ValidarDatos() {
         val email: String = L_Et_email.text.toString()
         val password: String = L_Et_password.text.toString()
@@ -82,6 +83,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    // Iniciar sesión con el email y la contraseña proporcionados
     private fun LoginUsuario(email: String, password: String) {
         progressDialog.setMessage("Espere Por favor")
         progressDialog.show()

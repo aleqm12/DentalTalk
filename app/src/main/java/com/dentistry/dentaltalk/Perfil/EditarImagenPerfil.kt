@@ -49,31 +49,32 @@ class EditarImagenPerfil : AppCompatActivity() {
             insets
         }
 
+        // Inicializar vistas
         ImagenPerfilActualizar = findViewById(R.id.ImagenPerfilActualizar)
         BtnElegirImagen = findViewById(R.id.BtnElegirImagenDe)
         BtnActualizarImagen = findViewById(R.id.BtnActualizarImagen)
 
+        // Inicializar el diálogo de progreso
         progressDialog = ProgressDialog(this@EditarImagenPerfil)
         progressDialog.setTitle("Espere Por favor")
         progressDialog.setCanceledOnTouchOutside(false)
 
-
+        // Obtener el usuario actual
         firebaseAuth = FirebaseAuth.getInstance()
         firebaseUser = FirebaseAuth.getInstance().currentUser
 
-
-
+        // Establecer listeners para los botones
         BtnElegirImagen.setOnClickListener {
             Toast.makeText(applicationContext, "Seleccionar imagen de", Toast.LENGTH_SHORT).show()
             MostrarDialog()
         }
 
         BtnActualizarImagen.setOnClickListener {
-            //Toast.makeText(applicationContext, "Actualizar imagen", Toast.LENGTH_SHORT).show()
-            ValidarImagen()
+            ValidarImagen() // Validar imagen antes de subir
         }
     }
 
+    // Validar la imagen seleccionada
     private fun ValidarImagen(){
         if (imageUri == null){
             Toast.makeText(applicationContext,"Es necesario una imagen", Toast.LENGTH_SHORT).show()
@@ -82,15 +83,15 @@ class EditarImagenPerfil : AppCompatActivity() {
         }
     }
 
-
-
+    // Subir la imagen a Firebase Storage
     private fun SubirImagen() {
         progressDialog.setMessage("Actualizando imagen")
         progressDialog.show()
         val rutaImagen = "Perfil_usuario/"+firebaseAuth.uid
         val referenceStorage = FirebaseStorage.getInstance().getReference(rutaImagen)
-        referenceStorage.putFile(imageUri!!).addOnSuccessListener { tarea->
 
+        // Subir el archivo
+        referenceStorage.putFile(imageUri!!).addOnSuccessListener { tarea->
             val uriTarea : Task<Uri> = tarea.storage.downloadUrl
             while (!uriTarea.isSuccessful);
             val urlImage = "${uriTarea.result}"
@@ -101,6 +102,7 @@ class EditarImagenPerfil : AppCompatActivity() {
         }
     }
 
+    // Actualizar la URL de la imagen del usuario en la base de datos
     private fun ActualizarImagenBD(urlImage: String){
 
         progressDialog.setMessage("Actualizando imagen de peril")
@@ -119,7 +121,7 @@ class EditarImagenPerfil : AppCompatActivity() {
       }
     }
 
-
+    // Abrir la galería para seleccionar una imagen
     private fun AbrirGaleria(){
 
         val intent = Intent(Intent.ACTION_PICK)
@@ -127,19 +129,21 @@ class EditarImagenPerfil : AppCompatActivity() {
         galeriaActivityResultLauncher.launch(intent)
     }
 
+    // Lanzador de resultado de actividad para la galería
     private  val galeriaActivityResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
         ActivityResultCallback <ActivityResult>{resultado->
             if (resultado.resultCode == RESULT_OK){
                 val data = resultado.data
-                imageUri = data!!.data
-                ImagenPerfilActualizar.setImageURI(imageUri)
+                imageUri = data!!.data // Obtener la URI de la imagen seleccionada
+                ImagenPerfilActualizar.setImageURI(imageUri) // Establecer la imagen en el ImageView
             }else{
                 Toast.makeText(applicationContext, "Cancelado por el usuario", Toast.LENGTH_SHORT).show()
             }
         }
     )
 
+    // Abrir la cámara para tomar una foto
     private fun AbrirCamara (){
         val values = ContentValues()
         values.put(MediaStore.Images.Media.TITLE, "Titulo")
@@ -148,9 +152,10 @@ class EditarImagenPerfil : AppCompatActivity() {
 
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri)
-        camaraActivityResultLauncher.launch(intent)
+        camaraActivityResultLauncher.launch(intent) // Lanzar la cámara
     }
 
+    // Lanzador de resultado de actividad para la cámara
     private  val camaraActivityResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()){resultado_camara->
             if (resultado_camara.resultCode == RESULT_OK){
@@ -160,6 +165,7 @@ class EditarImagenPerfil : AppCompatActivity() {
             }
         }
 
+    // Solicitar permiso para la cámara
     private val requestCamaraPermiso =
         registerForActivityResult(ActivityResultContracts.RequestPermission()){ Permiso_concedido->
             if (Permiso_concedido){
@@ -171,7 +177,7 @@ class EditarImagenPerfil : AppCompatActivity() {
         }
 
 
-
+    // Mostrar diálogo para seleccionar la fuente de imagen
     private fun MostrarDialog(){
         val Btn_abrir_galeria: Button
         val Btn_abrir_camara : Button
@@ -200,12 +206,11 @@ class EditarImagenPerfil : AppCompatActivity() {
            }
 
         }
-
         dialog.show()
-
 
     }
 
+    // Actualizar el estado del usuario en la base de datos
     private fun ActualizarEstado(estado: String){
         val reference = FirebaseDatabase.getInstance().reference.child("Usuarios")
             .child(firebaseUser!!.uid)
@@ -216,11 +221,11 @@ class EditarImagenPerfil : AppCompatActivity() {
 
     override fun onResume(){
         super.onResume()
-        ActualizarEstado("online")
+        ActualizarEstado("online")  // Establecer estado como en línea
     }
 
     override fun onPause(){
         super.onPause()
-        ActualizarEstado("offline")
+        ActualizarEstado("offline") // Establecer estado como fuera de línea
     }
 }

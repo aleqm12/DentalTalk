@@ -33,9 +33,10 @@ class FragmentoChats : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Infla la vista para este fragmento
         val view: View = inflater.inflate(R.layout.fragment_fragmento_chats, container, false)
 
+        // Configura el RecyclerView para mostrar la lista de chats
         RV_ListaChats = view.findViewById(R.id.RV_ListaChats)
         RV_ListaChats.setHasFixedSize(true)
         RV_ListaChats.layoutManager = LinearLayoutManager(context)
@@ -48,9 +49,9 @@ class FragmentoChats : Fragment() {
                 (usuarioListaChats as ArrayList).clear()
                 for (dataSnapshot in snapshot.children){
                     val chatList = dataSnapshot.getValue(ListaChats::class.java)
-                    (usuarioListaChats as ArrayList).add(chatList!!)
+                    (usuarioListaChats as ArrayList).add(chatList!!)// Agrega a la lista
                 }
-
+                // Recupera la información de los usuarios para los chats
                 RecuperarListaChats()
             }
 
@@ -63,6 +64,7 @@ class FragmentoChats : Fragment() {
         return view
     }
 
+    // Recupera la información de los usuarios correspondientes a los chats
     private fun RecuperarListaChats(){
         usuarioLista = ArrayList()
         val reference = FirebaseDatabase.getInstance().reference.child("Usuarios")
@@ -71,8 +73,9 @@ class FragmentoChats : Fragment() {
                 (usuarioLista as ArrayList).clear()
                 for (dataSnapshot in snapshot.children){
 
-                    val user = dataSnapshot.getValue(Usuario::class.java)
+                    val user = dataSnapshot.getValue(Usuario::class.java)  // Obtiene cada usuario
                     for (cadaLista in usuarioListaChats!!){
+                        // Compara el UID del usuario con el UID en la lista de chats
                         if (user!!.getUid().equals(cadaLista.getUid())){
                             (usuarioLista as ArrayList).add(user)
                         }
